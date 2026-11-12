@@ -368,20 +368,22 @@ def build_map():
     # Lebanon
     W, H = 640, 520; LB = (35.30, 36.10, 33.60, 34.05)
     pts = [('Damour', 33.73, 35.455, 'The Aoun (Awn) family’s village', 'a'), ('Beirut', 33.894, 35.50, 'Port city', 'n'),
-           ('Zahle', 33.847, 35.902, 'The Hadad family’s town (Wassela)', 's'), ('Forzul', 33.87, 35.98, 'The Saydah family’s village (position approximate)', 's')]
+           ('Zahle', 33.847, 35.902, 'The Hadad family’s town (Wassela)', 's'), ('Forzul', 33.87, 35.98, 'The Saydah family’s village (not shown on the map)', 's')]
     coast = [(35.36, 33.60), (35.40, 33.68), (35.44, 33.73), (35.47, 33.82), (35.50, 33.894), (35.55, 33.95), (35.60, 34.00), (35.63, 34.05)]
     cp = ' '.join('%.1f,%.1f' % proj(lo, la, LB, W, H) for lo, la in coast)
     sea = cp + ' %.1f,%.1f %.1f,%.1f' % (0, 0, 0, H)
     # sea polygon: coast line then left corners; order: bottom of coast first, go to top then around left
     pp = [proj(lo, la, LB, W, H) for lo, la in coast]
     seapoly = '0,%d %.1f,%d ' % (H, pp[0][0] - 8, H) + cp + ' %.1f,0 0,0' % (pp[-1][0] + 8)
-    svg1 = ['<svg class="mapsvg" viewBox="0 0 %d %d" role="img" aria-label="Simplified map of Lebanon showing Damour, Beirut, Zahle and Forzul">' % (W, H),
+    svg1 = ['<svg class="mapsvg" viewBox="0 0 %d %d" role="img" aria-label="Simplified map of Lebanon showing Damour, Beirut and Zahle">' % (W, H),
             '<rect width="%d" height="%d" class="land"/>' % (W, H), '<polygon points="%s" class="sea"/>' % seapoly,
             '<polyline points="%s" class="coast"/>' % cp,
             '<text x="40" y="%d" class="geo">Mediterranean Sea</text>' % (H // 2),
             '<text x="%.0f" y="%.0f" class="geo">Mount Lebanon</text>' % proj(35.62, 33.66, LB, W, H),
             '<text x="%.0f" y="%.0f" class="geo">Beqaa Valley</text>' % proj(35.88, 33.70, LB, W, H)]
     for name, la, lo, desc, c in pts:
+        if name == 'Forzul':
+            continue
         x, y = proj(lo, la, LB, W, H)
         dx = 12 if name != 'Damour' else 12
         svg1.append('<circle cx="%.1f" cy="%.1f" r="7" class="pt %s"/><text x="%.1f" y="%.1f" class="pl">%s</text>' % (x, y, c, x + dx, y + 5, name))
@@ -390,7 +392,7 @@ def build_map():
     W2, H2 = 640, 520; NB = (-78.0, -73.4, 40.4, 43.3)
     pts2 = [('Brooklyn', 40.65, -73.95, 'Where both families settled', 'b'), ('Tuxedo Park', 41.19, -74.19, 'The 1916 crash', 'n'),
             ('Tannersville', 42.20, -74.14, 'Summer 1945 in the mountains', 'n'), ('Syracuse', 43.05, -76.15, 'Shehadi cousins; Hanna Hadad’s funeral', 's'),
-            ('Clifton Springs', 42.96, -77.14, 'Where Hanna Hadad died, Oct 1913', 's')]
+            ('Clifton Springs', 42.96, -77.14, 'Where Hanna Hadad spent his last months, 1913', 's')]
     svg2 = ['<svg class="mapsvg" viewBox="0 0 %d %d" role="img" aria-label="Simplified map of New York State showing Brooklyn, Tuxedo Park, Tannersville, Syracuse and Clifton Springs">' % (W2, H2),
             '<rect width="%d" height="%d" class="land"/>' % (W2, H2)]
     for name, la, lo, desc, c in pts2:
