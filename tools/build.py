@@ -101,6 +101,7 @@ def sitenav(cur):
     for f, label, _ in PAGES:
         cls = ' aria-current="page"' if f == cur else ''
         out.append('<a href="%s"%s>%s</a>' % (f, cls, NAVSHORT[f]))
+    out.append('<button type="button" id="bigtext" aria-pressed="false">Larger text</button>')
     return '<nav class="sitenav" aria-label="Site">' + ''.join(out) + '</nav>'
 
 SEARCHFORM = ('<form class="sitesearch" action="search.html" method="get" role="search">'
@@ -139,19 +140,35 @@ def local_toc(body):
         out.append('<a class="l%s" href="#%s">%s</a>' % ('2' if lv == '2' else '3', i, esc(t)))
     return ''.join(out)
 
+AR = re.compile(r'[\u0600-\u06FF\u0750-\u077F][\u0600-\u06FF\u0750-\u077F\s\u060C\u061B\u061F.\-]*[\u0600-\u06FF\u0750-\u077F]|[\u0600-\u06FF\u0750-\u077F]')
+def arabic(h):
+    parts = re.split(r'(<[^>]+>)', h)
+    out = []; skip = False
+    for p in parts:
+        if p.startswith('<'):
+            low = p.lower()
+            if low.startswith(('<script', '<style')): skip = True
+            elif low.startswith(('</script', '</style')): skip = False
+            out.append(p)
+        elif skip:
+            out.append(p)
+        else:
+            out.append(AR.sub(lambda m: '<span lang="ar" dir="rtl">%s</span>' % m.group(0), p))
+    return ''.join(out)
+
 def doc(cur, title, desc, hero_title, hero_sub, body, local=None, extra_head='', extra_js=''):
     body = relink(body, cur)
     loc = local if local is not None else local_toc(body)
     loc = relink(loc, cur)
-    return ('<!DOCTYPE html>\n<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
+    return arabic('<!DOCTYPE html>\n<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
             '<title>%s</title><meta name="description" content="%s">' % (esc(title), esc(desc)) + FONTS +
-            '<link rel="stylesheet" href="site.css">' + extra_head + '</head><body id="top">' +
+            '<link rel="stylesheet" href="site.css">' + extra_head + '</head><body id="top"><a class="skip" href="#main">Skip to the story</a>' +
             hero(cur, hero_title, hero_sub) +
             '<div class="bar"><button id="menu" aria-expanded="false" aria-controls="rail">Menu</button>'
             '<a class="bar-title" href="index.html">Awn and Saydah family history</a><a href="search.html">Search</a></div>'
-            '<div class="shell"><div class="scrim" id="scrim"></div>' + rail(cur, loc) + '<main>' + body + '</main></div>'
+            '<div class="shell"><div class="scrim" id="scrim"></div>' + rail(cur, loc) + '<main id="main">' + body + '</main></div>'
             '<footer>Built from the family research files. Alien registration and Social Security numbers are hidden on the images. '
-            'Last updated ' + UPDATED + '.</footer><button id="up" aria-label="Back to the top" type="button">↑</button>'
+            'Last updated ' + UPDATED + '. <button type="button" class="bigtext" aria-pressed="false">Larger text</button></footer><button id="up" aria-label="Back to the top" type="button">↑</button>'
             '<div id="lb" role="dialog" aria-modal="true" aria-label="Document viewer"><div class="tb"><span class="ct"></span>'
             '<button class="pv">‹ Previous</button><button class="nx">Next ›</button><button class="x">Close</button></div><div class="box"></div></div>'
             '<script src="site.js"></script>' + extra_js + '</body></html>')

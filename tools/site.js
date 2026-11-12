@@ -47,3 +47,5 @@ window.addEventListener('pageshow',function(e){if(!location.hash)top0()});
 window.addEventListener('hashchange',land);
 var tk=false;window.addEventListener('scroll',function(){if(!tk){tk=true;requestAnimationFrame(function(){spy();up.classList.toggle('on',window.scrollY>900);tk=false})}},{passive:true});spy();
 })();
+
+(function(){var bs=[].slice.call(document.querySelectorAll('.bigtext'));function set(on){document.documentElement.classList.toggle('big',on);bs.forEach(function(b){b.setAttribute('aria-pressed',on);b.textContent=on?'Normal text':'Larger text'})}var on=false;try{on=localStorage.getItem('bigtext')==='1'}catch(e){}set(on);bs.forEach(function(b){b.addEventListener('click',function(){on=!on;set(on);try{localStorage.setItem('bigtext',on?'1':'0')}catch(e){}})})})();
