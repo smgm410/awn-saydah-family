@@ -161,7 +161,7 @@ def doc(cur, title, desc, hero_title, hero_sub, body, local=None, extra_head='',
     loc = local if local is not None else local_toc(body)
     loc = relink(loc, cur)
     return arabic('<!DOCTYPE html>\n<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
-            '<title>%s</title><meta name="description" content="%s">' % (esc(title), esc(desc)) + FONTS +
+            '<title>%s</title><meta name="description" content="%s">' % (esc(title), esc(desc)) + HEAD_EXTRA % (esc(title), esc(desc)) + FONTS +
             '<link rel="stylesheet" href="site.css">' + extra_head + '</head><body id="top"><a class="skip" href="#main">Skip to the story</a>' +
             hero(cur, hero_title, hero_sub) +
             '<div class="bar"><button id="menu" aria-expanded="false" aria-controls="rail">Menu</button>'
@@ -287,6 +287,13 @@ reg('index.html', CONTENT['index.html'])
 
 # ---------------------------------------------------------------- part pages: intro and pager
 ORDER = ['index.html', 'part-one.html', 'part-two.html', 'part-three.html', 'descendants.html']
+HEAD_EXTRA = ('<meta name="robots" content="noindex,nofollow">'
+    '<link rel="icon" href="favicon.svg" type="image/svg+xml">'
+    '<meta property="og:type" content="website"><meta property="og:site_name" content="Awn and Saydah Family History">'
+    '<meta property="og:title" content="%s"><meta property="og:description" content="%s">'
+    '<meta property="og:image" content="https://awnsaydah.com/og.png"><meta name="twitter:card" content="summary_large_image">')
+
+
 def pager(cur):
     i = ORDER.index(cur); p = ORDER[i - 1] if i > 0 else None; n = ORDER[i + 1] if i + 1 < len(ORDER) else None
     lab = dict(zip(ORDER, ['Home', 'Part One: Aoun (Awn)', 'Part Two: Saydah', 'Part Three: Anthony and Helen', 'Descendants']))

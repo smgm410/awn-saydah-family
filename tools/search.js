@@ -1,6 +1,6 @@
 (function(){
 var q=document.getElementById('q'),out=document.getElementById('sres'),st=document.getElementById('sres-status'),data=null;
-function norm(s){return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'')}
+function norm(s){return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[\u2018\u2019\u02bc]/g,"'")}
 var GROUPS=[['aoun','awn','owen','aun','aou','aoon','owin'],['saydah','saidah','sayda','saida','smyda'],['hadad','haddad','hodod','hadel'],['antoon','anton','antoun'],['anthony','antoine','antony'],['elias','louis','luis'],['nassib','nessil','nessib'],['khaleel','khalil','kaleel'],['wassela','wassila','wassilah','wassilla','waseela','wassella'],['zahle','zahleh','zahlah'],['damour','damur','damoor'],['mathilde','matilda','matilde','mathilda'],['theresa','teresa','thirsie'],['george','georges'],['salim','salem','selim'],['najib','najeeb','nageeb','najeb'],['michael','michel','michal','micheal'],['kirkish','qirqish','kirkesh'],['shehadi','shahady','shehady','shahadi'],['john','jean','hanna'],['joseph','youseuf','yousef','youssef','yusuf'],['assin','aseen','essine','assine']];
 function alts(k){for(var i=0;i<GROUPS.length;i++){if(GROUPS[i].indexOf(k)>-1)return GROUPS[i]}return [k]}
 function has(text,list){for(var i=0;i<list.length;i++){var a=list[i],p=text.indexOf(a);while(p>-1){if(p===0||!/[a-z0-9]/.test(text.charAt(p-1)))return p;p=text.indexOf(a,p+1)}}return -1}
@@ -14,7 +14,7 @@ function run(term){
  res.sort(function(a,b){return b.s-a.s});
  var also=[];toks.forEach(function(k){var al=alts(k);if(al.length>1)also.push(al.join(', '))});var note=also.length?' Also searched the same name spelled: '+also.join('; ')+'.':'';st.textContent=res.length?res.length+' result'+(res.length>1?'s':'')+' for “'+term+'”.'+note:'Nothing found for “'+term+'”. Try another spelling (Aoun, Awn, Owen; Saydah, Saida; Hadad, Haddad) or a shorter word.';
  res.slice(0,60).forEach(function(r){var e=r.e,x=e.x,i=norm(x).indexOf(toks[0]),sn='';
-  if(i>-1){var a=Math.max(0,i-70);sn=(a>0?'… ':'')+x.slice(a,i+150)+' …'}else{sn=x.slice(0,160)+' …'}
+  if(i>-1){var a=Math.max(0,i-70);sn=(a>0?'… ':'')+x.slice(a,i+150)+' …'}else{sn=x.slice(0,160)+' …'}sn=sn.replace(/[\u2018\u2019]/g,"'");
   var h=esc(sn);toks.forEach(function(k){alts(k).forEach(function(a){h=h.replace(new RegExp('(\\b'+a.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','ig'),'<mark>$1</mark>')})});
   var li=document.createElement('li');li.innerHTML='<span class="k">'+(e.k==='d'?'Document':'Story')+'</span><a href="'+e.u+'">'+esc(e.t)+'</a><p>'+h+'</p>';out.appendChild(li)})}
 var params=new URLSearchParams(location.search),first=params.get('q')||'';
