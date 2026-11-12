@@ -245,9 +245,21 @@ def branches():
                spine([chip(n) for n in ['Salim', 'Charles', 'Najib']]) + '</section>')
     return '<div class="branches">' + ''.join(out) + '</div>'
 
+TREEMAP = {'Joseph (Youseuf) Aoun':'joseph-aoun','Assin':'assin','Nassib (Nessil)':'nassib','Mathilde (Matilda)':'mathilde','John':'john',
+ 'Theresa':'theresa','George':'george','Mitchell':'mitchell','Elias (Louis)':'elias','Esther':'esther','Anthony':'anthony','Anthony J. Awn':'anthony',
+ 'Helen':'helen','Helen Saydah':'helen','Antoon (Anton) Saydah':'antoon','Wassela Hadad':'wassela','Hanna (John) Hadad':'hanna-hadad',
+ 'Amina Shehadi':'amina','Lily':'lily','Evelyn':'evelyn','Virginia':'virginia','Khaleel':'khaleel','Michael':'michael-saydah','Murad':'murad',
+ 'Sa\u2019da Kirkish':'sada-kirkish','Nustas Kirkish':'nustas-kirkish'}
+def _link_tree(h):
+    def sub(m):
+        slug = TREEMAP.get(m.group(3))
+        if not slug: return m.group(0)
+        return '%s href="person-%s.html"%s<b>%s</b>' % (m.group(1), slug, m.group(2), m.group(3))
+    return re.sub(r'(<a class="pn[^"]*") href="[^"]+"([^>]*>)<b>(.*?)</b>', sub, h)
+
 def tree_block():
-    return ('<h3 class="tl-h" id="family-tree">Family tree</h3>'
-            '<p class="tree-hint">Tap or click any name to jump to that person’s story. Dates are the best we have; where records disagree, the story says so. '
+    return _link_tree('<h3 class="tl-h" id="family-tree">Family tree</h3>'
+            '<p class="tree-hint">Tap or click a name to open that person’s page, with dates, family and documents. Names without a page go to the story. Dates are the best we have; where records disagree, the story says so. '
             '<button type="button" class="btn sm alt" id="printtree">Print the tree</button></p>'
             '<div id="family-tree-wrap"><h4 class="ft-h">Four generations at a glance</h4><p class="swipe">Swipe sideways to see the whole chart.</p>' + ped() +
             '<h4 class="ft-h">Everyone we know of in each branch</h4>' + branches() + '</div>')
