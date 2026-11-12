@@ -109,3 +109,17 @@ main a.pn{text-decoration:none;color:var(--ink)}main a.pn:hover{border-color:var
 html.big body{font-size:22px}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
 .sitenav button,footer .bigtext{font:600 13.5px var(--ui);cursor:pointer;padding:7px 13px;border-radius:99px;border:1px solid rgba(243,239,228,.28);background:transparent;color:var(--cedar-ink)}footer .bigtext{color:var(--ink);border-color:var(--line);margin-left:.6em}
+
+/* Dark mode: readable dates and box outlines (12 Nov 2026) */
+@media(prefers-color-scheme:dark){
+:root:not([data-theme="light"]) .moments b{color:#7fd1ad}
+:root:not([data-theme="light"]) .moments li,:root:not([data-theme="light"]) .card.a,:root:not([data-theme="light"]) .branch,:root:not([data-theme="light"]) .pn.a,:root:not([data-theme="light"]) .people .pn,:root:not([data-theme="light"]) .br.a .pn{border-top-color:#7fd1ad}
+:root:not([data-theme="light"]) .pn{border-left-color:#7fd1ad}
+:root:not([data-theme="light"]) .card.s,:root:not([data-theme="light"]) .branch.s{border-top-color:var(--brass)}
+:root:not([data-theme="light"]) .people.s .pn,:root:not([data-theme="light"]) .pc.s .pn{border-left-color:var(--brass)}
+}
+:root[data-theme="dark"] .moments b{color:#7fd1ad}
+:root[data-theme="dark"] .moments li,:root[data-theme="dark"] .card.a,:root[data-theme="dark"] .branch{border-top-color:#7fd1ad}
+:root[data-theme="dark"] .pn{border-left-color:#7fd1ad}
+:root[data-theme="dark"] .card.s,:root[data-theme="dark"] .branch.s{border-top-color:var(--brass)}
+:root[data-theme="dark"] .people.s .pn,:root[data-theme="dark"] .pc.s .pn{border-left-color:var(--brass)}
