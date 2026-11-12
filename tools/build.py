@@ -345,6 +345,7 @@ def build_gallery():
 # ---------------------------------------------------------------- people page
 def build_people():
     def card(name, sub, href, note='', me=False):
+        href = PERSONHREF.get(name, href)
         return '<a class="pn%s" href="%s"><b>%s</b>%s%s</a>' % (' me' if me else '', href, name, ('<span>%s</span>' % sub) if sub else '', ('<span class="rel">%s</span>' % note) if note else '')
     G = []
     def grp(title, cards, cls=''):
@@ -364,8 +365,65 @@ def build_people():
         [card('Hanna (John) Hadad', 'died 1913', '#p-hanna', 'Father of Wassela'), card('Amina Shehadi', '', '#p-wparents', 'Mother of Wassela'),
          c('Wassela Hadad', 'Wife of Antoon')] + [c(n, 'Brother of Wassela') for n in ['Salim', 'Charles', 'Najib']], 's')
     grp('Antoon and Wassela’s children', [c(n, 'Child of Antoon and Wassela') for n in ['Lily', 'Helen', 'Evelyn', 'Virginia']], 's')
-    return ('<p class="lead">Everyone who has a name in the family tree, with how they fit in. Click a name to read that person’s story. '
+    return ('<p class="lead">Everyone who has a name in the family tree, with how they fit in. Names in bold lead to a short page for that person, with dates, family and documents. '
             'Living relatives are not listed.</p>' + ''.join(G)), G
+
+
+# ---------------------------------------------------------------- person pages
+sys.path.insert(0, 'tools')
+import people_data
+PEOPLE = people_data.PEOPLE
+PBYSLUG = {p['slug']: p for p in PEOPLE}
+PERSONHREF = {}
+for _p in PEOPLE:
+    for _n in _p['cards']: PERSONHREF[_n] = 'person-%s.html' % _p['slug']
+TAGW = {'C': ('t-c', 'Confirmed'), 'F': ('t-f', 'Family'), 'P': ('t-p', 'Probable')}
+
+def _items():
+    info = {}
+    for f in ('part-one.html', 'part-two.html', 'part-three.html'):
+        for m in re.finditer(r'<figure class="doc" id="item-(\d+)">.*?aria-label="Open document \d+: (.*?)"><img[^>]*src="([^"]+)"', CONTENT[f], re.S):
+            info[int(m.group(1))] = (html.unescape(m.group(2)), m.group(3))
+    return info
+
+def _section_items(hid):
+    for f in ('part-one.html', 'part-two.html', 'part-three.html'):
+        body = CONTENT[f]
+        m = re.search(r'<h3 id="%s"' % re.escape(hid), body)
+        if not m: continue
+        n = re.search(r'<h[23] id=', body[m.end():])
+        seg = body[m.start(): m.end() + (n.start() if n else len(body))]
+        return [int(x) for x in re.findall(r'<figure class="doc" id="item-(\d+)"', seg)]
+    return []
+
+def build_person_pages():
+    info = _items(); pages = {}; entries = []
+    def link(m):
+        s = m.group(1); q = PBYSLUG[s]
+        return '<a href="person-%s.html">%s</a>' % (s, esc(q.get('short') or q['name']))
+    for p in PEOPLE:
+        rows = []
+        for label, text, tag in p['rows']:
+            t = re.sub(r'\{([a-z\-]+)\}', link, esc(text).replace('&#x27;', '’'))
+            tg = ' <b class="tag %s">%s</b>' % TAGW[tag] if tag else ''
+            rows.append('<div><dt>%s</dt><dd>%s%s</dd></div>' % (esc(label), t, tg))
+        ids = []
+        for d in p['docs']:
+            ids += _section_items(d) if isinstance(d, str) else [d]
+        seen = []; [seen.append(i) for i in ids if i not in seen and i in info]
+        dg = ''.join('<a class="pdoc" href="documents.html#item-%d"><img loading="lazy" src="%s" alt=""><span><b>Document %d</b>%s</span></a>' % (i, info[i][1], i, esc(info[i][0])) for i in seen)
+        pg, anchor = p['story']
+        body = ('<p class="lead">%s</p>' % esc(p['brief']) +
+                '<dl class="pfacts">%s</dl>' % ''.join(rows) +
+                (('<p class="pspell"><b>Spellings in the records:</b> %s.</p>' % esc(p['spellings'])) if p['spellings'] else '') +
+                '<p class="pgo"><a class="pbtn" href="%s#%s">Read the full story</a> <a class="pback" href="people.html">All the people</a></p>' % (pg, anchor) +
+                (('<h3 class="gal">Documents about %s</h3><div class="pdocs">%s</div>' % (esc(p.get('short') or p['name']), dg)) if dg else '') +
+                '<p class="pnote">Each fact carries its label: Confirmed (shown in a record), Family (told to us) or Probable (fits but unproven). Living relatives are not listed.</p>')
+        f = 'person-%s.html' % p['slug']
+        pages[f] = doc(f, '%s · Awn and Saydah Family History' % p['name'], p['brief'], p['name'], p['dates'], body, local='')
+        txt = ' '.join([p['brief'], p['spellings']] + ['%s %s' % (a, re.sub(r'\{([a-z\-]+)\}', lambda m: PBYSLUG[m.group(1)]['name'], b)) for a, b, c in p['rows']])
+        entries.append({'t': p['name'], 'u': f, 'x': txt[:2500], 'k': 'p'})
+    return pages, entries
 
 # ---------------------------------------------------------------- journey map page
 def build_map():
@@ -451,6 +509,7 @@ def main_():
     gal_body, gal_total = build_gallery()
     assert gal_total == NDOCS, (gal_total, NDOCS)
     people_body, _ = build_people()
+    person_pages, person_entries = build_person_pages()
     map_body = build_map()
     out = {}
     out['index.html'] = doc('index.html', 'Awn and Saydah Family History', 'The Awn and Saydah families, from Damour and Forzul in Lebanon to Brooklyn.', None, None, CONTENT['index.html'],
@@ -471,11 +530,12 @@ def main_():
             '<p id="sres-status" class="hint" role="status"></p><ol id="sres" class="sres"></ol><noscript><p>Search needs JavaScript. Use the Contents links instead.</p></noscript>')
     out['search.html'] = doc('search.html', 'Search · Awn and Saydah Family History', 'Search the family history.', 'Search', 'Names, places, dates and records', srch,
                              local='', extra_js='<script src="search.js"></script>')
+    out.update(person_pages)
     for f, t in out.items(): open(f, 'w', encoding='utf8').write(t)
     open('site.css', 'w', encoding='utf8').write(css.strip() + '\n' + EXTRA_CSS)
     open('site.js', 'w', encoding='utf8').write(JS)
     open('search.js', 'w', encoding='utf8').write(open('tools/search.js', encoding='utf8').read())
-    idx = build_search_index()
+    idx = build_search_index() + person_entries
     json.dump(idx, open('search-index.json', 'w', encoding='utf8'), ensure_ascii=False, separators=(',', ':'))
     print('pages', len(out), 'docs', NDOCS, 'search entries', len(idx))
 

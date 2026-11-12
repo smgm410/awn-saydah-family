@@ -16,7 +16,7 @@ function run(term){
  res.slice(0,60).forEach(function(r){var e=r.e,x=e.x,i=norm(x).indexOf(toks[0]),sn='';
   if(i>-1){var a=Math.max(0,i-70);sn=(a>0?'… ':'')+x.slice(a,i+150)+' …'}else{sn=x.slice(0,160)+' …'}sn=sn.replace(/[\u2018\u2019]/g,"'");
   var h=esc(sn);toks.forEach(function(k){alts(k).forEach(function(a){h=h.replace(new RegExp('(\\b'+a.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','ig'),'<mark>$1</mark>')})});
-  var li=document.createElement('li');li.innerHTML='<span class="k">'+(e.k==='d'?'Document':'Story')+'</span><a href="'+e.u+'">'+esc(e.t)+'</a><p>'+h+'</p>';out.appendChild(li)})}
+  var li=document.createElement('li');li.innerHTML='<span class="k">'+(e.k==='d'?'Document':e.k==='p'?'Person':'Story')+'</span><a href="'+e.u+'">'+esc(e.t)+'</a><p>'+h+'</p>';out.appendChild(li)})}
 var params=new URLSearchParams(location.search),first=params.get('q')||'';
 q.value=first;
 fetch('search-index.json').then(function(r){return r.json()}).then(function(d){data=d;run(first);
