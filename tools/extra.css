@@ -123,3 +123,6 @@ html.big body{font-size:22px}
 :root[data-theme="dark"] .pn{border-left-color:#7fd1ad}
 :root[data-theme="dark"] .card.s,:root[data-theme="dark"] .branch.s{border-top-color:var(--brass)}
 :root[data-theme="dark"] .people.s .pn,:root[data-theme="dark"] .pc.s .pn{border-left-color:var(--brass)}
+
+/* Document boxes sitting directly in the page column match the paragraph width */
+main>aside.docs{box-sizing:border-box;max-width:42rem}
