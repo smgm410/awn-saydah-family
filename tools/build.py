@@ -368,25 +368,27 @@ def build_map():
     # Lebanon
     W, H = 640, 520; LB = (35.30, 36.10, 33.60, 34.05)
     pts = [('Damour', 33.73, 35.455, 'The Aoun (Awn) family’s village', 'a'), ('Beirut', 33.894, 35.50, 'Port city', 'n'),
-           ('Zahle', 33.847, 35.902, 'The Hadad family’s town (Wassela)', 's'), ('Forzul', 33.87, 35.98, 'The Saydah family’s village (not shown on the map)', 's')]
+           ('Zahle', 33.847, 35.902, 'The Hadad family’s town (Wassela)', 's'), ('Forzul', 33.87, 35.98, 'The Saydah family’s village (position approximate)', 's')]
     coast = [(35.36, 33.60), (35.40, 33.68), (35.44, 33.73), (35.47, 33.82), (35.50, 33.894), (35.55, 33.95), (35.60, 34.00), (35.63, 34.05)]
     cp = ' '.join('%.1f,%.1f' % proj(lo, la, LB, W, H) for lo, la in coast)
     sea = cp + ' %.1f,%.1f %.1f,%.1f' % (0, 0, 0, H)
     # sea polygon: coast line then left corners; order: bottom of coast first, go to top then around left
     pp = [proj(lo, la, LB, W, H) for lo, la in coast]
     seapoly = '0,%d %.1f,%d ' % (H, pp[0][0] - 8, H) + cp + ' %.1f,0 0,0' % (pp[-1][0] + 8)
-    svg1 = ['<svg class="mapsvg" viewBox="0 0 %d %d" role="img" aria-label="Simplified map of Lebanon showing Damour, Beirut and Zahle">' % (W, H),
+    svg1 = ['<svg class="mapsvg" viewBox="0 0 %d %d" role="img" aria-label="Simplified map of Lebanon showing Damour, Beirut, Zahle and approximately Forzul">' % (W, H),
             '<rect width="%d" height="%d" class="land"/>' % (W, H), '<polygon points="%s" class="sea"/>' % seapoly,
             '<polyline points="%s" class="coast"/>' % cp,
             '<text x="40" y="%d" class="geo">Mediterranean Sea</text>' % (H // 2),
             '<text x="%.0f" y="%.0f" class="geo">Mount Lebanon</text>' % proj(35.62, 33.66, LB, W, H),
             '<text x="%.0f" y="%.0f" class="geo">Beqaa Valley</text>' % proj(35.88, 33.70, LB, W, H)]
     for name, la, lo, desc, c in pts:
-        if name == 'Forzul':
-            continue
         x, y = proj(lo, la, LB, W, H)
+        label = 'Forzul (approx.)' if name == 'Forzul' else name
         dx = 12 if name != 'Damour' else 12
-        svg1.append('<circle cx="%.1f" cy="%.1f" r="7" class="pt %s"/><text x="%.1f" y="%.1f" class="pl">%s</text>' % (x, y, c, x + dx, y + 5, name))
+        if name == 'Forzul':
+            svg1.append('<circle cx="%.1f" cy="%.1f" r="7" class="pt %s"/><text x="%.1f" y="%.1f" class="pl" text-anchor="end">%s</text>' % (x, y, c, x + 8, y - 14, label))
+        else:
+            svg1.append('<circle cx="%.1f" cy="%.1f" r="7" class="pt %s"/><text x="%.1f" y="%.1f" class="pl">%s</text>' % (x, y, c, x + dx, y + 5, label))
     svg1.append('</svg>')
     # NY region
     W2, H2 = 640, 520; NB = (-78.0, -73.4, 40.4, 43.3)
