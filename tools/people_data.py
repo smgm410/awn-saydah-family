@@ -181,7 +181,7 @@ dict(slug='virginia',name='Virginia Saydah Hakim',dates='1921 – 2015',cards=['
  brief='Helen’s youngest sister. Her wedding to George M. Hakim was announced in May 1945. She died in 2015 in Harrington Park, New Jersey. We list only what the records and her obituary show.',
  spellings='Virginia Hakim',
  rows=[('Born','About December 1921 in our earlier records. Her obituary says 29 June 1921, so the date needs checking','P'),('Married','{george-hakim}, around 6 May 1945, St. Nicholas Cathedral','C'),
-  ('Later','By 1962 the family was in Englewood, New Jersey. She sang in the church choir at St. Anthony Orthodox Church, Bergenfield, and her obituary says she studied voice and piano at Juilliard','F'),
+  ('Later','The family was in New Jersey by 1962 (her obituary says 1961). She sang in the church choir at St. Anthony Orthodox Church, Bergenfield, and her obituary says she studied voice and piano at Juilliard','F'),
   ('Children','Four','F'),
   ('Died','26 August 2015, Harrington Park, New Jersey (obituary, The Record, 27 August 2015). Funeral at St. Anthony Orthodox Church, Bergenfield; burial planned at Brookside Cemetery, Englewood','C'),('Parents','{antoon} and {wassela}','C'),('Sisters','{helen} and {evelyn}','C')],
  docs=[30,39,79,80]),
