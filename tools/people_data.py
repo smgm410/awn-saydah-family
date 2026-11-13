@@ -226,7 +226,7 @@ dict(slug='murad',name='Murad Saydah',dates='alive 1920; died by 1929',cards=['M
  docs=[150]),
 dict(slug='tirkman',name='Tirkman Saydah',dates='died 1929',cards=[],story=(S2,'murad-saydah-and-tirkman'),line='s',
  brief='Murad’s widow. She gave to the Zahle Relief Committee in 1926 and was listed among the women sailing to the homeland in May 1927 (an Arabic paper; our translation, to be confirmed by a native reader).',
- spellings='Tirkman, born Abu Ayn according to the Arabic papers (our translation, to be confirmed by a native reader); Tikam (1925 census); Tirkman Bouanain (Cecil’s Iowa delayed birth record); Saydah (death certificate). The certificate names her parents as Abdo and Sylvia Bouinain, while the Arabic papers say Abu Ayn, an open conflict; Nora’s 1920 certificate gives the mother’s maiden name as Mary Boainam',
+ spellings='Tirkman, born Abu Ayn according to the Arabic papers (our translation, to be confirmed by a native reader); Tikam (1925 census); Tirkman Bouanain (Cecil’s Iowa delayed birth record); Saydah (death certificate). The certificate names her parents as Abdo Bouinain and Sylvia Bouman (as we read the hand), while the Arabic papers say Abu Ayn, an open conflict; Nora’s 1920 certificate gives the mother’s maiden name as Mary Boainam',
  rows=[('Born','About 1878, Syria (age 51 in 1929; 42 in 1920; 48 in 1925)','P'),
   ('Died','7 September 1929, aged 51, St. Mary’s Hospital, Brooklyn; buried at Mount Olivet Cemetery on 10 September; she lived at 39 Gelston Avenue','C'),
   ('Funeral day','The Arabic paper announced Tuesday 10 September 1929 (our translation, to be confirmed by a native reader); the Brooklyn Daily Times printed “to-morrow” on 10 September, so the day is an open conflict',''),
