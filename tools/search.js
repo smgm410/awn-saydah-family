@@ -1,5 +1,5 @@
 (function(){
-var q=document.getElementById('q'),out=document.getElementById('sres'),st=document.getElementById('sres-status'),data=null;
+var q=document.getElementById('q')||document.querySelector('form.sitesearch input[name=q]'),out=document.getElementById('sres'),st=document.getElementById('sres-status'),data=null;
 function norm(s){return s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[\u2018\u2019\u02bc]/g,"'")}
 var GROUPS=[['aoun','awn','owen','aun','aou','aoon','owin'],['saydah','saidah','sayda','saida','smyda'],['hadad','haddad','hodod','hadel'],['antoon','anton','antoun'],['anthony','antoine','antony'],['elias','louis','luis'],['nassib','nessil','nessib'],['khaleel','khalil','kaleel'],['wassela','wassila','wassilah','wassilla','waseela','wassella'],['zahle','zahleh','zahlah'],['damour','damur','damoor'],['mathilde','matilda','matilde','mathilda'],['theresa','teresa','thirsie'],['george','georges'],['salim','salem','selim'],['najib','najeeb','nageeb','najeb'],['michael','michel','michal','micheal'],['kirkish','qirqish','kirkesh'],['shehadi','shahady','shehady','shahadi'],['john','jean','hanna'],['joseph','youseuf','yousef','youssef','yusuf'],['assin','aseen','essine','assine']];
 function alts(k){for(var i=0;i<GROUPS.length;i++){if(GROUPS[i].indexOf(k)>-1)return GROUPS[i]}return [k]}

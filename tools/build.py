@@ -165,7 +165,7 @@ def doc(cur, title, desc, hero_title, hero_sub, body, local=None, extra_head='',
             '<link rel="stylesheet" href="site.css">' + extra_head + '</head><body id="top"><a class="skip" href="#main">Skip to the story</a>' +
             hero(cur, hero_title, hero_sub) +
             '<div class="bar"><button id="menu" aria-expanded="false" aria-controls="rail">Menu</button>'
-            '<a class="bar-title" href="index.html">Awn and Saydah family history</a><a href="search.html">Search</a></div>'
+            '<a class="bar-title" href="index.html">Awn and Saydah family history</a></div>'
             '<div class="shell"><div class="scrim" id="scrim"></div>' + rail(cur, loc) + '<main id="main">' + body + '</main></div>'
             '<footer>Built from the family research files. Alien registration and Social Security numbers are hidden on the images. '
             'Last updated ' + UPDATED + '. <button type="button" class="bigtext" aria-pressed="false">Larger text</button></footer><button id="up" aria-label="Back to the top" type="button">↑</button>'
@@ -552,7 +552,7 @@ def main_():
     out['journey.html'] = doc('journey.html', 'Map · Awn and Saydah Family History', 'Where the family lived.', 'The journey map', 'Lebanon, Brooklyn and the places in between', map_body)
     res_intro = ('<p class="lead">This page is for researchers and for relatives who want to check our work: the records we cite but could not picture, the dead ends, and what we are still searching for.</p>')
     out['researchers.html'] = doc('researchers.html', 'For researchers · Awn and Saydah Family History', 'Sources, dead ends and open questions.', 'For researchers', 'Sources, dead ends and what we are still searching for', res_intro + CONTENT['researchers.html'])
-    srch = ('<p class="lead">Search the story and the document captions.</p><form class="sitesearch big" action="search.html" method="get" role="search"><input type="search" name="q" id="q" placeholder="Try: Hadad, Maloof, Damour, 1913" aria-label="Search the site" autocomplete="off"><button type="submit">Search</button></form>'
+    srch = ('<p class="lead">Search the story and the document captions, using the box above. Try: Hadad, Maloof, Damour, 1913.</p>'
             '<p id="sres-status" class="hint" role="status"></p><ol id="sres" class="sres"></ol><noscript><p>Search needs JavaScript. Use the Contents links instead.</p></noscript>')
     out['search.html'] = doc('search.html', 'Search · Awn and Saydah Family History', 'Search the family history.', 'Search', 'Names, places, dates and records', srch,
                              local='', extra_js='<script src="search.js"></script>')
