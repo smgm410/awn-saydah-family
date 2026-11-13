@@ -142,3 +142,27 @@ main>aside.docs{box-sizing:border-box;max-width:42rem}
 .pdoc span{display:block;padding:8px 10px;font-size:.9em}
 .pdoc b{display:block;font-size:.8em;text-transform:uppercase;letter-spacing:.04em;opacity:.7}
 .pnote{max-width:42rem;font-size:.9em;opacity:.8;margin-top:28px}
+
+/* Dark mode: Awn-line tree connectors were cedar on a near-cedar background (12 Nov 2026) */
+@media(prefers-color-scheme:dark){
+:root:not([data-theme="light"]) .br.a:before,:root:not([data-theme="light"]) .br.a:after{border-color:color-mix(in srgb,#7fd1ad 70%,transparent)}
+}
+:root[data-theme="dark"] .br.a:before,:root[data-theme="dark"] .br.a:after{border-color:color-mix(in srgb,#7fd1ad 70%,transparent)}
+
+/* Real-geography maps (12 Nov 2026) */
+.mapsvg .sea{fill:#bcd3dc}.mapsvg .land{fill:#e4dfd0}.mapsvg .lebfill,.mapsvg .nyfill{fill:#f1ecdc}
+.mapsvg .border{fill:none;stroke:#9b9684;stroke-width:1;stroke-dasharray:4 3}.mapsvg .coast{fill:none;stroke:#6f93a3;stroke-width:1.5}
+.mapsvg .lake{fill:#bcd3dc;stroke:#6f93a3;stroke-width:1}.mapsvg .river{fill:none;stroke:#7fa4b4;stroke-width:1.3}
+.mapsvg .geo.big{font:600 17px var(--ui);letter-spacing:.14em;fill:#8a8570}.mapsvg .geo.sm{font:italic 13px var(--body)}
+.mapsvg .pl.halo{stroke:#f1ecdc;stroke-width:4px;paint-order:stroke;fill:#f1ecdc;stroke-linejoin:round}
+.mapsvg .pt.minor{fill:var(--soft);stroke:none}.mapsvg .pt.approx{fill:none;stroke:var(--brass);stroke-width:2.5;stroke-dasharray:3 2}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) .mapsvg .sea,:root:not([data-theme="light"]) .mapsvg .lake{fill:#1f3640}
+:root:not([data-theme="light"]) .mapsvg .land{fill:#2c3029}:root:not([data-theme="light"]) .mapsvg .lebfill,:root:not([data-theme="light"]) .mapsvg .nyfill{fill:#363a31}
+:root:not([data-theme="light"]) .mapsvg .border{stroke:#6c6f60}:root:not([data-theme="light"]) .mapsvg .coast,:root:not([data-theme="light"]) .mapsvg .lake{stroke:#4d7384}
+:root:not([data-theme="light"]) .mapsvg .river{stroke:#4d7384}:root:not([data-theme="light"]) .mapsvg .geo{fill:#b4b2a2}:root:not([data-theme="light"]) .mapsvg .geo.big{fill:#8d8b79}
+:root:not([data-theme="light"]) .mapsvg .pl{fill:#f1efe6}:root:not([data-theme="light"]) .mapsvg .pl.halo{stroke:#363a31;fill:#363a31}:root:not([data-theme="light"]) .mapsvg .pt.a{fill:#7fc4ab}}
+:root[data-theme="dark"] .mapsvg .sea,:root[data-theme="dark"] .mapsvg .lake{fill:#1f3640}:root[data-theme="dark"] .mapsvg .land{fill:#2c3029}
+:root[data-theme="dark"] .mapsvg .lebfill,:root[data-theme="dark"] .mapsvg .nyfill{fill:#363a31}:root[data-theme="dark"] .mapsvg .border{stroke:#6c6f60}
+:root[data-theme="dark"] .mapsvg .coast,:root[data-theme="dark"] .mapsvg .lake,:root[data-theme="dark"] .mapsvg .river{stroke:#4d7384}
+:root[data-theme="dark"] .mapsvg .geo{fill:#b4b2a2}:root[data-theme="dark"] .mapsvg .geo.big{fill:#8d8b79}:root[data-theme="dark"] .mapsvg .pl{fill:#f1efe6}
+:root[data-theme="dark"] .mapsvg .pl.halo{stroke:#363a31;fill:#363a31}:root[data-theme="dark"] .mapsvg .pt.a{fill:#7fc4ab}

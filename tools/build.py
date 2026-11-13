@@ -101,7 +101,7 @@ def sitenav(cur):
     for f, label, _ in PAGES:
         cls = ' aria-current="page"' if f == cur else ''
         out.append('<a href="%s"%s>%s</a>' % (f, cls, NAVSHORT[f]))
-    out.append('<button type="button" id="bigtext" aria-pressed="false">Larger text</button>')
+    out.append('<button type="button" class="bigtext" aria-pressed="false">Larger text</button>')
     return '<nav class="sitenav" aria-label="Site">' + ''.join(out) + '</nav>'
 
 SEARCHFORM = ('<form class="sitesearch" action="search.html" method="get" role="search">'
@@ -208,7 +208,7 @@ def ped():
         cells.append('<div class="br %s" style="grid-column:%d;grid-row:%d/%d"></div>' % (cls, col, r1, r2))
     put(box('Boutros (Peter) Aoun', "Joseph's father", '#joseph-and-assin-aoun'), 1, 1, 2, A)
     put(box('Teresa', "Joseph's mother", '#joseph-and-assin-aoun'), 1, 2, 3, A)
-    put(box('Joseph Segen', "Assin's father", '#p-assin'), 1, 3, 4, A)
+    put(box('Joseph Segen', "Assin's father (Probable)", '#p-assin'), 1, 3, 4, A)
     put(box('Susanne', "Assin's mother (Probable)", '#p-assin'), 1, 4, 5, A)
     put(box('Wahbeh Saydah', "Antoon's father", '#anton-s-brothers-and-sisters'), 1, 5, 6, S)
     put(box('Noor', "Antoon's mother", '#anton-s-brothers-and-sisters'), 1, 6, 7, S)
@@ -223,7 +223,7 @@ def ped():
     put(box('Anthony J. Awn', '1914 – 1966 · Helen’s husband', '#anthony-a-citizen-and-a-shopkeeper', 'me'), 5, 1, 5, A)
     put(box('Helen Saydah', '1917 – 2000 · Anthony’s wife', '#helen', 'me'), 5, 5, 9, S)
     br(6, 1, 9, 'x')
-    put('<a class="pn me kids" href="#five-children"><b>Their five children</b><span>Joseph, Jacqueline, Stephanie, Kathleen and Marie</span></a>', 7, 1, 9, 'kidsbox')
+    put('<a class="pn me kids" href="#five-children"><b>Their five children</b><span>Joseph, Jacqueline, Kathleen, Stephanie and Marie</span></a>', 7, 1, 9, 'kidsbox')
     lab = ('<div class="gl" style="grid-column:1;grid-row:1">Great-grandparents</div>')
     return '<div class="ped-wrap"><div class="ped">' + ''.join(cells) + '</div></div>'
 
@@ -232,6 +232,14 @@ def couple(a, b, wed):
 
 def spine(chips):
     return '<ul class="spine">' + ''.join('<li>%s</li>' % c for c in chips) + '</ul>'
+
+SPOUSES = [('Fred Gorayeb', 'born about 1889', 'fred-gorayeb', 'Husband of Mathilde'),
+           ('Michael Koury', 'born 1906', 'michael-koury', 'Husband of Theresa'),
+           ('Isabel Awn', '1916 – 2007', 'isabel', 'Wife of Elias'),
+           ('Tirkman Saydah', 'died 1929', 'tirkman', 'Widow of Murad'),
+           ('Eli Zrake', '1918 – 1958', 'eli-zrake', 'First husband of Evelyn'),
+           ('Leonard F. Deschner', '1911 – 2003', 'leonard-deschner', 'Second husband of Evelyn'),
+           ('George Michael Hakim', '1918 – 1996', 'george-hakim', 'Husband of Virginia')]
 
 def branches():
     out = []
@@ -243,6 +251,8 @@ def branches():
                spine([chip(n) for n in ['Khaleel', 'Michael', 'Murad']] + [box('Antoon (Anton) Saydah', '1880 or 1881 – 1949', '#anton-arrives-1898')] + [chip(n) for n in ['Sa’da Kirkish', 'Nustas Kirkish']]) + '</section>')
     out.append('<section class="branch s"><h4>Wassela’s brothers</h4><p class="ft-par">Children of Hanna (John) Hadad and Amina Shehadi.</p>' +
                spine([chip(n) for n in ['Salim', 'Charles', 'Najib']]) + '</section>')
+    out.append('<section class="branch a"><h4>Husbands and wives who joined the family</h4><p class="ft-par">Each name opens a short page.</p>' +
+               spine([box(n, sub, 'person-%s.html' % sl) for n, sub, sl, note in SPOUSES]) + '</section>')
     return '<div class="branches">' + ''.join(out) + '</div>'
 
 TREEMAP = {'Joseph (Youseuf) Aoun':'joseph-aoun','Assin':'assin','Nassib (Nessil)':'nassib','Mathilde (Matilda)':'mathilde','John':'john',
@@ -364,7 +374,7 @@ def build_people():
         G.append('<h3 class="gal">%s</h3><div class="people %s">%s</div>' % (title, cls, ''.join(cards)))
     c = lambda n, note: card(CHIPS[n]['name'], CHIPS[n]['sub'], CHIPS[n]['href'], note, CHIPS[n]['me'])
     grp('Anthony and Helen', [c('Anthony J. Awn', 'Married Helen Saydah, 29 December 1940'), c('Helen Saydah', 'Married Anthony Awn, 29 December 1940'),
-                              card('Their five children', 'Joseph, Jacqueline, Stephanie, Kathleen and Marie', '#five-children', 'Children of Anthony and Helen')])
+                              card('Their five children', 'Joseph, Jacqueline, Kathleen, Stephanie and Marie', '#five-children', 'Children of Anthony and Helen')])
     grp('The Aoun (Awn) family of Damour',
         [card('Boutros (Peter) Aoun', '', '#joseph-and-assin-aoun', 'Father of Joseph'), card('Teresa', '', '#joseph-and-assin-aoun', 'Mother of Joseph'),
          c('Joseph (Youseuf) Aoun', 'Husband of Assin'), c('Assin', 'Wife of Joseph')] +
@@ -377,6 +387,7 @@ def build_people():
         [card('Hanna (John) Hadad', 'died 1913', '#p-hanna', 'Father of Wassela'), card('Amina Shehadi', '', '#p-wparents', 'Mother of Wassela'),
          c('Wassela Hadad', 'Wife of Antoon')] + [c(n, 'Brother of Wassela') for n in ['Salim', 'Charles', 'Najib']], 's')
     grp('Antoon and Wassela’s children', [c(n, 'Child of Antoon and Wassela') for n in ['Lily', 'Helen', 'Evelyn', 'Virginia']], 's')
+    grp('Spouses and in-laws', [card(n, sub, 'person-%s.html' % sl, note) for n, sub, sl, note in SPOUSES], 'a')
     return ('<p class="lead">Everyone who has a name in the family tree, with how they fit in. Names in bold lead to a short page for that person, with dates, family and documents. '
             'Living relatives are not listed.</p>' + ''.join(G)), G
 
@@ -439,51 +450,54 @@ def build_person_pages():
 
 # ---------------------------------------------------------------- journey map page
 def build_map():
-    def proj(lon, lat, box, W, H, pad=40):
-        x0, x1, y0, y1 = box
-        return (pad + (lon - x0) / (x1 - x0) * (W - 2 * pad), pad + (y1 - lat) / (y1 - y0) * (H - 2 * pad))
-    # Lebanon
-    W, H = 640, 520; LB = (35.30, 36.10, 33.60, 34.05)
-    pts = [('Damour', 33.73, 35.455, 'The Aoun (Awn) family’s village', 'a'), ('Beirut', 33.894, 35.50, 'Port city', 'n'),
-           ('Zahle', 33.847, 35.902, 'The Hadad family’s town (Wassela)', 's'), ('Forzul', 33.87, 35.98, 'The Saydah family’s village (position approximate)', 's')]
-    coast = [(35.36, 33.60), (35.40, 33.68), (35.44, 33.73), (35.47, 33.82), (35.50, 33.894), (35.55, 33.95), (35.60, 34.00), (35.63, 34.05)]
-    cp = ' '.join('%.1f,%.1f' % proj(lo, la, LB, W, H) for lo, la in coast)
-    sea = cp + ' %.1f,%.1f %.1f,%.1f' % (0, 0, 0, H)
-    # sea polygon: coast line then left corners; order: bottom of coast first, go to top then around left
-    pp = [proj(lo, la, LB, W, H) for lo, la in coast]
-    seapoly = '0,%d %.1f,%d ' % (H, pp[0][0] - 8, H) + cp + ' %.1f,0 0,0' % (pp[-1][0] + 8)
-    svg1 = ['<svg class="mapsvg" viewBox="0 0 %d %d" role="img" aria-label="Simplified map of Lebanon showing Damour, Beirut, Zahle and approximately Forzul">' % (W, H),
-            '<rect width="%d" height="%d" class="land"/>' % (W, H), '<polygon points="%s" class="sea"/>' % seapoly,
-            '<polyline points="%s" class="coast"/>' % cp,
-            '<text x="40" y="%d" class="geo">Mediterranean Sea</text>' % (H // 2),
-            '<text x="%.0f" y="%.0f" class="geo">Mount Lebanon</text>' % proj(35.62, 33.66, LB, W, H),
-            '<text x="%.0f" y="%.0f" class="geo">Beqaa Valley</text>' % proj(35.88, 33.70, LB, W, H)]
-    for name, la, lo, desc, c in pts:
-        x, y = proj(lo, la, LB, W, H)
-        label = 'Forzul (approx.)' if name == 'Forzul' else name
-        dx = 12 if name != 'Damour' else 12
-        if name == 'Forzul':
-            svg1.append('<circle cx="%.1f" cy="%.1f" r="7" class="pt %s"/><text x="%.1f" y="%.1f" class="pl" text-anchor="end">%s</text>' % (x, y, c, x + 8, y - 14, label))
+    # Real geography (Natural Earth and US Census boundaries via world-atlas and us-atlas, public domain),
+    # projected once by a script and stored in tools/map_paths.json; labels and points are placed on it.
+    MP = json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)), 'map_paths.json')))
+    def dot(x, y, cls, label, anchor='start', dx=12, dy=5, approx=False):
+        tx = x + dx if anchor == 'start' else x - dx
+        ring = ' approx' if approx else ''
+        return ('<circle cx="%.1f" cy="%.1f" r="7" class="pt %s%s"/><text x="%.1f" y="%.1f" class="pl halo" text-anchor="%s">%s</text>'
+                '<text x="%.1f" y="%.1f" class="pl" text-anchor="%s">%s</text>') % (x, y, cls, ring, tx, y + dy, anchor, label, tx, y + dy, anchor, label)
+    def txt(x, y, label, cls='geo', anchor='start'):
+        return '<text x="%.0f" y="%.0f" class="%s" text-anchor="%s">%s</text>' % (x, y, cls, anchor, label)
+    L = MP['leb']; P = L['pts']; LB = L['lab']
+    pts = [('Damour', 'The Aoun (Awn) family’s village', 'a'), ('Beirut', 'Port city', 'n'),
+           ('Zahle', 'The Hadad family’s town (Wassela)', 's'), ('Forzul', 'The Saydah family’s village (position approximate)', 's')]
+    svg1 = ['<svg class="mapsvg" viewBox="0 0 640 520" role="img" aria-label="Map of Lebanon with the coast, the border with Syria and Israel, and the villages Damour, Beirut, Zahle and approximately Forzul">',
+            '<rect width="640" height="520" class="sea"/>', '<path d="%s" class="land"/>' % L['land'],
+            '<path d="%s" class="lebfill"/>' % L['leb'], '<path d="%s" class="border"/>' % L['borders'],
+            '<path d="%s" class="river"/>' % L['rivers'], '<path d="%s" class="coast"/>' % L['land'],
+            txt(LB['sea'][0], LB['sea'][1], 'Mediterranean Sea'), txt(LB['leb'][0], LB['leb'][1], 'LEBANON', 'geo big', 'middle'), txt(LB['syria'][0], LB['syria'][1], 'SYRIA', 'geo big', 'middle')]
+    for k, extra in (('Tripoli', 0), ('Sidon', 0), ('Baalbek', 0)):
+        x, y = P[k]; svg1.append('<circle cx="%.1f" cy="%.1f" r="3.5" class="pt minor"/>' % (x, y) + txt(x + 8, y + 4, k, 'geo sm'))
+    for n, d, c in pts:
+        x, y = P[n]
+        if n == 'Forzul':
+            svg1.append(dot(x, y, c, 'Forzul (approx.)', 'start', 12, -12, True))
+        elif n == 'Damour':
+            svg1.append(dot(x, y, c, n, 'end', 12, 5))
+        elif n == 'Beirut':
+            svg1.append(dot(x, y, c, n, 'end', 12, 5))
         else:
-            svg1.append('<circle cx="%.1f" cy="%.1f" r="7" class="pt %s"/><text x="%.1f" y="%.1f" class="pl">%s</text>' % (x, y, c, x + dx, y + 5, label))
+            svg1.append(dot(x, y, c, n, 'start', 12, 18))
     svg1.append('</svg>')
-    # NY region
-    W2, H2 = 640, 520; NB = (-78.0, -73.4, 40.4, 43.3)
-    pts2 = [('Brooklyn', 40.65, -73.95, 'Where both families settled', 'b'), ('Tuxedo Park', 41.19, -74.19, 'The 1916 crash', 'n'),
-            ('Tannersville', 42.20, -74.14, 'Summer 1945 in the mountains', 'n'), ('Syracuse', 43.05, -76.15, 'Shehadi cousins; Hanna Hadad’s funeral', 's'),
-            ('Clifton Springs', 42.96, -77.14, 'Where Hanna Hadad spent his last months, 1913', 's')]
-    svg2 = ['<svg class="mapsvg" viewBox="0 0 %d %d" role="img" aria-label="Simplified map of New York State showing Brooklyn, Tuxedo Park, Tannersville, Syracuse and Clifton Springs">' % (W2, H2),
-            '<rect width="%d" height="%d" class="land"/>' % (W2, H2)]
-    for name, la, lo, desc, c in pts2:
-        x, y = proj(lo, la, NB, W2, H2)
-        anchor = 'end' if name == 'Clifton Springs' else 'start'
-        tx = x - 12 if anchor == 'end' else x + 12
-        svg2.append('<circle cx="%.1f" cy="%.1f" r="7" class="pt %s"/><text x="%.1f" y="%.1f" class="pl" text-anchor="%s">%s</text>' % (x, y, c, tx, y + 5, anchor, name))
+    N = MP['ny']; NP = N['pts']; NL = N['lab']
+    pts2 = [('Brooklyn', 'Where both families settled', 'b', 'start', 12, 5), ('Tuxedo Park', 'The 1916 crash', 'n', 'end', 12, 5),
+            ('Tannersville', 'Summer 1945 in the mountains', 'n', 'end', 12, 5), ('Syracuse', 'Shehadi cousins; Hanna Hadad’s funeral', 's', 'start', 12, -10),
+            ('Clifton Springs', 'Where Hanna Hadad spent his last months, 1913', 's', 'end', 12, 5)]
+    svg2 = ['<svg class="mapsvg" viewBox="0 0 640 520" role="img" aria-label="Map of New York State with Lake Ontario, Lake Erie and Long Island, showing Brooklyn, Tuxedo Park, Tannersville, Syracuse and Clifton Springs">',
+            '<rect width="640" height="520" class="sea"/>', '<path d="%s" class="land"/>' % N['land'], '<path d="%s" class="nyfill"/>' % N['ny'],
+            '<path d="%s" class="lake"/>' % N['lakes'], '<path d="%s" class="river"/>' % N['rivers'],
+            '<path d="%s" class="border"/>' % N['borders'],
+            txt(NL['ont'][0], NL['ont'][1], 'Lake Ontario', 'geo', 'middle'), txt(NL['erie'][0], NL['erie'][1], 'Lake Erie', 'geo', 'middle'),
+            txt(NL['atl'][0], NL['atl'][1], 'Atlantic Ocean', 'geo', 'end')]
+    for n, d, c, anchor, dx, dy in pts2:
+        x, y = NP[n]; svg2.append(dot(x, y, c, n, anchor, dx, dy))
     svg2.append('</svg>')
-    lst1 = ''.join('<li><b>%s</b>: %s</li>' % (n, d) for n, la, lo, d, c in pts)
-    lst2 = ''.join('<li><b>%s</b>: %s</li>' % (n, d) for n, la, lo, d, c in pts2)
+    lst1 = ''.join('<li><b>%s</b>: %s</li>' % (n, d) for n, d, c in pts)
+    lst2 = ''.join('<li><b>%s</b>: %s</li>' % (n, d) for n, d, c, a, dx, dy in pts2)
     body = ('<p class="lead">The two families began in different parts of Lebanon and met again in Brooklyn. '
-            'These are simplified maps: positions are approximate and not to scale, and the coastline is only a rough guide.</p>'
+            'The coastlines, borders, lakes and rivers on these maps are real. The villages are placed from their coordinates, and Forzul’s position is only approximate.</p>'
             '<h2 id="map-lebanon" class="plain">Lebanon</h2>' + ''.join(svg1) + '<ul class="maplist">' + lst1 + '</ul>'
             '<h2 id="map-crossing" class="plain">The crossing</h2><p>Antoon Saydah came to New York in 1898 (the ship and the exact arrival date are still in question: see <a href="part-two.html#anton-arrives-1898">Antoon arrives, 1898</a>). '
             'Joseph and Assin’s family crossed in 1920 (<a href="part-one.html#the-crossing-1920">The crossing, 1920</a>). Anthony and Helen married in Brooklyn on 29 December 1940.</p>'
