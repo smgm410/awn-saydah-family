@@ -519,7 +519,7 @@ def build_search_index():
             nxt = heads[k + 1][0] if k + 1 < len(heads) else len(body)
             text = plain(body[e:nxt])
             if not text: continue
-            entries.append({'t': plain(t), 'u': '%s#%s' % (f, i), 'x': text[:6000], 'k': 's'})
+            entries.append({'t': plain(t), 'u': '%s#%s' % (f, i), 'x': text[:30000], 'k': 's'})
     for f in ('part-one.html', 'part-two.html', 'part-three.html'):
         for n, fig, t in figs_with_context(f, CONTENT[f]):
             title = plain(re.search(r'<figcaption>.*?<b>(.*?)</b>', fig, re.S).group(1))
