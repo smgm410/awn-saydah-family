@@ -99,6 +99,8 @@ def relink(body, cur):
 def sitenav(cur):
     out = []
     for f, label, _ in PAGES:
+        if f == 'search.html' and cur != 'search.html':
+            continue
         cls = ' aria-current="page"' if f == cur else ''
         out.append('<a href="%s"%s>%s</a>' % (f, cls, NAVSHORT[f]))
     out.append('<button type="button" class="bigtext" aria-pressed="false">Larger text</button>')
@@ -122,10 +124,13 @@ def hero(cur, title, sub):
 def rail(cur, local):
     r = ['<button class="rail-x" id="railx" type="button" aria-label="Close contents">Close ✕</button>',
          '<a class="share-link" href="index.html#share">Share a memory or photo</a>']
+    pages = []
     for f, label, _ in PAGES:
-        r.append('<a class="l2%s" href="%s">%s</a>' % (' cur' if f == cur else '', f, esc(label)))
-        if f == cur and local:
-            r.append('<details class="rail-sub"><summary>Sections on this page</summary>' + local + '</details>')
+        pages.append('<a class="l2%s" href="%s">%s</a>' % (' cur' if f == cur else '', f, esc(label)))
+    pages.append('<button type="button" class="bigtext rail-big" aria-pressed="false">Larger text</button>')
+    r.append('<div class="rail-pages">' + ''.join(pages) + '</div>')
+    if local:
+        r.append('<details class="rail-sub"><summary>Jump to a section</summary>' + local + '</details>')
     r.append('<a class="totop" href="#top" style="margin-top:18px">↑ Back to the top</a>')
     return '<nav class="rail" id="rail" aria-label="Contents">' + ''.join(r) + '</nav>'
 

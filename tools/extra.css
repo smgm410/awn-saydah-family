@@ -176,6 +176,9 @@ main>aside.docs{box-sizing:border-box;max-width:42rem}
 .portraits .num{display:none}
 .portraits .lbl{display:block;font-style:italic;color:var(--soft)}
 
-.rail .rail-sub{margin:2px 0 8px 12px;border-left:2px solid var(--tint,#e8e2d6)}
-.rail .rail-sub summary{cursor:pointer;padding:6px 10px;font-size:.9em;opacity:.85}
+.rail .rail-sub{margin:6px 0 8px 0;border-left:2px solid var(--line)}
+.rail .rail-sub summary{cursor:pointer;padding:8px 10px;font-weight:600;color:var(--ink)}
 .rail .rail-sub a.l2,.rail .rail-sub a.l3{font-size:.9em}
+.rail .rail-big{display:none;margin:12px 0 4px;padding:8px 12px;font:600 14px var(--ui);border:1px solid var(--line);border-radius:8px;background:transparent;color:var(--ink);width:100%}
+@media(min-width:901px){.rail .rail-pages{display:none}}
+@media(max-width:900px){.rail .rail-big{display:block}}
