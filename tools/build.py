@@ -445,6 +445,14 @@ def build_person_pages():
             im = re.search(r'<img[^>]*src="([^"]+)"', h)
             return '<a class="pdoc" href="documents.html#%s">%s<span><b>Documents page</b>%s</span></a>' % (cid, ('<img loading="lazy" src="%s" alt="">' % im.group(1)) if im else '', esc(ttl))
         dcg = ''.join(_card(c) for c in p.get('dcards', []))
+        def _covered(cid):
+            m = re.search(r'<article class="rec"[^>]*id="%s"[^>]*>(.*?)</article>' % re.escape(cid), _dp, re.S)
+            return any(int(n) in ids for n in re.findall(r'id="item-(\d+)"', m.group(1))) if m else False
+        own = ''.join(_card(c) for c in p.get('dcards_own', []) if not _covered(c))
+        def _itemlist(idl):
+            sn = []; [sn.append(i) for i in idl if i not in sn and i in info]
+            return ''.join('<a class="pdoc" href="documents.html#item-%d"><img loading="lazy" src="%s" alt=""><span><b>Document %d</b>%s</span></a>' % (i, info[i][1], i, esc(info[i][0])) for i in sn)
+        dgg = ''.join('<h3 class="gal">%s</h3><div class="pdocs">%s</div>' % (esc(h), _itemlist(l)) for h, l in p.get('dgroups', []))
         pg, anchor = p['story']
         pcs = [x for x in PORTRAITS.P if p['slug'] in x['slugs']]
         def _pfig(x):
@@ -459,8 +467,9 @@ def build_person_pages():
                 '<dl class="pfacts">%s</dl>' % ''.join(rows) +
                 (('<p class="pspell"><b>Spellings in the records:</b> %s.</p>' % esc(p['spellings'])) if p['spellings'] else '') +
                 '<p class="pgo"><a class="pbtn" href="%s#%s">Read the full story</a> <a class="pback" href="people.html">All the people</a></p>' % (pg, anchor) +
-                (('<h3 class="gal">Documents about %s</h3><div class="pdocs">%s</div>' % (esc(p.get('short') or p['name']), dg)) if dg else '') +
-                (('<h3 class="gal">%s</h3><div class="pdocs">%s</div>' % (esc(p.get('dcards_h') or 'More records on the Documents page'), dcg)) if dcg else '') +
+                (('<h3 class="gal">Documents about %s</h3><div class="pdocs">%s</div>' % (esc(p.get('short') or p['name']), dg + own)) if (dg or own) else '') +
+                  dgg +
+              (('<h3 class="gal">%s</h3><div class="pdocs">%s</div>' % (esc(p.get('dcards_h') or 'More records on the Documents page'), dcg)) if dcg else '') +
                 '<p class="pnote">Each fact carries its label: Confirmed (shown in a record), Family (told to us) or Probable (fits but unproven). Living relatives are not listed.</p>')
         f = 'person-%s.html' % p['slug']
         pages[f] = doc(f, '%s · Awn and Saydah Family History' % p['name'], p['brief'], p['name'], p['dates'], body, local='')
