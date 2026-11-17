@@ -52,3 +52,5 @@ var tk=false;window.addEventListener('scroll',function(){if(!tk){tk=true;request
 })();
 
 (function(){var bs=[].slice.call(document.querySelectorAll('.bigtext'));function set(on){document.documentElement.classList.toggle('big',on);bs.forEach(function(b){b.setAttribute('aria-pressed',on);b.textContent=on?'Normal text':'Larger text'})}var on=false;try{on=localStorage.getItem('bigtext')==='1'}catch(e){}set(on);bs.forEach(function(b){b.addEventListener('click',function(){on=!on;set(on);try{localStorage.setItem('bigtext',on?'1':'0')}catch(e){}})})})();
+
+(function(){var s=document.querySelector('.jumpsel select');if(!s)return;s.addEventListener('change',function(){var v=s.value;if(!v)return;var t=document.getElementById(v.slice(1));if(t){t.scrollIntoView({behavior:'smooth',block:'start'});try{history.replaceState(null,'',v)}catch(e){}}s.value=''})})();

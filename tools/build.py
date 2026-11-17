@@ -163,6 +163,10 @@ def doc(cur, title, desc, hero_title, hero_sub, body, local=None, extra_head='',
     body = relink(body, cur)
     loc = local if local is not None else local_toc(body)
     loc = relink(loc, cur)
+    opts = re.findall(r'<a class="l3" href="(#[^"]+)">(.*?)</a>', loc)
+    if len(opts) >= 4:
+        body = ('<p class="jumpsel"><label>Jump to <select aria-label="Jump to a section on this page"><option value="">Choose a section…</option>' +
+                ''.join('<option value="%s">%s</option>' % (h, t) for h, t in opts) + '</select></label></p>' + body)
     return arabic('<!DOCTYPE html>\n<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">'
             '<title>%s</title><meta name="description" content="%s">' % (esc(title), esc(desc)) + HEAD_EXTRA % (esc(title), esc(desc)) + FONTS +
             '<link rel="stylesheet" href="site.css">' + extra_head + '</head><body id="top"><a class="skip" href="#main">Skip to the story</a>' +
