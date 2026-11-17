@@ -36,7 +36,7 @@ def card_for_img(name):
     for cid, c in cards.items():
         if 'img/%s.jpg' % base in c: return cid
 old = {}
-for m in re.finditer(r'<figure class="doc" id="item-(\d+)">(.*?)</figure>', site, re.S):
+for m in re.finditer(r'<figure class="doc(?: strip-doc(?: wide)?)?" id="item-(\d+)">(.*?)</figure>', site, re.S):
     n = int(m.group(1)); fg = m.group(2)
     t = html.unescape(re.search(r'aria-label="Open document \d+: (.*?)"', fg).group(1))
     imgs = [i for i in re.findall(r'(?:src|data-src)="(img/[^"]+)"', fg) if not i.endswith('-t.jpg')]

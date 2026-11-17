@@ -177,8 +177,8 @@ FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="
          '<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=IBM+Plex+Sans:wght@500;600&display=swap" rel="stylesheet">')
 
 # ---------------------------------------------------------------- figures (for gallery and counts)
-FIG_RE = re.compile(r'<figure class="doc" id="item-(\d+)">.*?</figure>', re.S)
-NDOCS = len(set(re.findall(r'<figure class="doc" id="item-(\d+)"', main)))
+FIG_RE = re.compile(r'<figure class="doc(?: strip-doc(?: wide)?)?" id="item-(\d+)">.*?</figure>', re.S)
+NDOCS = len(set(re.findall(r'<figure class="doc(?: strip-doc(?: wide)?)?" id="item-(\d+)"', main)))
 
 def figs_with_context(file, body):
     """yield (num, figure_html, section_title) using nearest preceding h3/h2"""
@@ -406,7 +406,7 @@ TAGW = {'C': ('t-c', 'Confirmed'), 'F': ('t-f', 'Family'), 'P': ('t-p', 'Probabl
 def _items():
     info = {}
     for f in ('part-one.html', 'part-two.html', 'part-three.html'):
-        for m in re.finditer(r'<figure class="doc" id="item-(\d+)">.*?aria-label="Open document \d+: (.*?)"><img[^>]*src="([^"]+)"', CONTENT[f], re.S):
+        for m in re.finditer(r'<figure class="doc(?: strip-doc(?: wide)?)?" id="item-(\d+)">.*?aria-label="Open document \d+: (.*?)"><img[^>]*src="([^"]+)"', CONTENT[f], re.S):
             info[int(m.group(1))] = (html.unescape(m.group(2)), m.group(3))
     return info
 
@@ -417,7 +417,7 @@ def _section_items(hid):
         if not m: continue
         n = re.search(r'<h[23] id=', body[m.end():])
         seg = body[m.start(): m.end() + (n.start() if n else len(body))]
-        return [int(x) for x in re.findall(r'<figure class="doc" id="item-(\d+)"', seg)]
+        return [int(x) for x in re.findall(r'<figure class="doc(?: strip-doc(?: wide)?)?" id="item-(\d+)"', seg)]
     return []
 
 def build_person_pages():
@@ -551,7 +551,7 @@ def build_search_index():
             entries.append({'t': plain(t), 'u': '%s#%s' % (f, i), 'x': text[:30000], 'k': 's'})
     for f in ('part-one.html', 'part-two.html', 'part-three.html'):
         for n, fig, t in figs_with_context(f, CONTENT[f]):
-            title = plain(re.search(r'<figcaption>.*?<b>(.*?)</b>', fig, re.S).group(1))
+            title = plain(re.search(r'aria-label="Open document \d+: (.*?)"', fig, re.S).group(1))
             cap = plain(re.search(r'<div class="cap">(.*?)</div>', fig, re.S).group(1)) if '<div class="cap">' in fig else ''
             cap = re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', ' ', html.unescape(re.search(r'<template class="full">(.*?)</template>', fig, re.S).group(1))))
             cap = cap.strip()
