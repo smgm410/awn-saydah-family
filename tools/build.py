@@ -332,7 +332,7 @@ INTRO = {
 }
 
 # ---------------------------------------------------------------- tree/people CSS etc are in EXTRA_CSS
-EXTRA_CSS = open('tools/extra.css', encoding='utf8').read()
+EXTRA_CSS = open('tools/extra.css', encoding='utf8').read() + '\n' + open('tools/docs_page.css', encoding='utf8').read()
 JS = open('tools/site.js', encoding='utf8').read()
 
 # ---------------------------------------------------------------- documents page
@@ -532,8 +532,11 @@ def build_search_index():
 # ---------------------------------------------------------------- write everything
 def main_():
     global NDOCS
-    gal_body, gal_total = build_gallery()
-    assert gal_total == NDOCS, (gal_total, NDOCS)
+    # Documents page (17 Nov 2026): the approved card layout, built by tools/make_documents_page.py
+    gal_body = ('<div id="docs-page">'
+                + open('src/documents_page.html', encoding='utf8').read()
+                + '<dialog class="lb" id="dlb"><button aria-label="Close" id="dlbx">Close</button><img alt=""/><div class="cp"></div></dialog><script>'
+                + open('tools/docs_page.js', encoding='utf8').read() + '</script></div>')
     people_body, _ = build_people()
     person_pages, person_entries = build_person_pages()
     map_body = build_map()
@@ -547,7 +550,7 @@ def main_():
         intro = '<p class="lead">%s</p>' % INTRO[f]
         out[f] = doc(f, '%s · Awn and Saydah Family History' % label, INTRO[f], re.sub(r'<[^>]+>', '', re.search(r'<h2[^>]*>(.*?)</h2>', body, re.S).group(1).replace('<span class="eyebrow">', '').replace('</span>', ': ')).strip(': '),
                      None, intro + body + pager(f))
-    out['documents.html'] = doc('documents.html', 'All documents · Awn and Saydah Family History', 'Every document in the family history, grouped by story.', 'All documents', '%d records, each beside the part of the story it belongs to' % NDOCS, gal_body)
+    out['documents.html'] = doc('documents.html', 'All documents · Awn and Saydah Family History', 'Every document in the family history, grouped by story.', 'All documents', 'Every record, grouped by box', gal_body)
     out['people.html'] = doc('people.html', 'People · Awn and Saydah Family History', 'The people in the family tree.', 'People', 'Who is who in the tree', people_body)
     out['journey.html'] = doc('journey.html', 'Map · Awn and Saydah Family History', 'Where the family lived.', 'The journey map', 'Lebanon, Brooklyn and the places in between', map_body)
     res_intro = ('<p class="lead">This page is for researchers and for relatives who want to check our work: the records we cite but could not picture, the dead ends, and what we are still searching for.</p>')
