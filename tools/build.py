@@ -332,7 +332,7 @@ INTRO = {
 }
 
 # ---------------------------------------------------------------- tree/people CSS etc are in EXTRA_CSS
-EXTRA_CSS = open('tools/extra.css', encoding='utf8').read() + '\n' + open('tools/docs_page.css', encoding='utf8').read()
+EXTRA_CSS = open('tools/extra.css', encoding='utf8').read() + '\n' + open('tools/docs_page.css', encoding='utf8').read() + '\n' + open('tools/layout.css', encoding='utf8').read()
 JS = open('tools/site.js', encoding='utf8').read()
 
 # ---------------------------------------------------------------- documents page
