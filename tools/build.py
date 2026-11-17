@@ -394,6 +394,7 @@ def build_people():
 
 # ---------------------------------------------------------------- person pages
 sys.path.insert(0, 'tools')
+import portraits as PORTRAITS
 import people_data
 PEOPLE = people_data.PEOPLE
 PBYSLUG = {p['slug']: p for p in PEOPLE}
@@ -436,7 +437,11 @@ def build_person_pages():
         seen = []; [seen.append(i) for i in ids if i not in seen and i in info]
         dg = ''.join('<a class="pdoc" href="documents.html#item-%d"><img loading="lazy" src="%s" alt=""><span><b>Document %d</b>%s</span></a>' % (i, info[i][1], i, esc(info[i][0])) for i in seen)
         pg, anchor = p['story']
-        body = ('<p class="lead">%s</p>' % esc(p['brief']) +
+        pcs = [x for x in PORTRAITS.P if p['slug'] in x['slugs']]
+        pgrid = ('<div class="portraits" aria-label="Photographs of %s">%s</div>' % (esc(p.get('short') or p['name']), ''.join(
+            '<figure><a href="img/portraits/%s"><img loading="lazy" src="img/portraits/%s" alt="%s"></a><figcaption>%s <span class="lbl">%s</span></figcaption></figure>'
+            % (x['file'], x['file'], esc(x['cap'].split(':')[0]), esc(x['cap']), esc(x['label'])) for x in pcs))) if pcs else ''
+        body = ('<p class="lead">%s</p>' % esc(p['brief']) + pgrid +
                 '<dl class="pfacts">%s</dl>' % ''.join(rows) +
                 (('<p class="pspell"><b>Spellings in the records:</b> %s.</p>' % esc(p['spellings'])) if p['spellings'] else '') +
                 '<p class="pgo"><a class="pbtn" href="%s#%s">Read the full story</a> <a class="pback" href="people.html">All the people</a></p>' % (pg, anchor) +

@@ -166,3 +166,10 @@ main>aside.docs{box-sizing:border-box;max-width:42rem}
 :root[data-theme="dark"] .mapsvg .coast,:root[data-theme="dark"] .mapsvg .lake,:root[data-theme="dark"] .mapsvg .river{stroke:#4d7384}
 :root[data-theme="dark"] .mapsvg .geo{fill:#b4b2a2}:root[data-theme="dark"] .mapsvg .geo.big{fill:#8d8b79}:root[data-theme="dark"] .mapsvg .pl{fill:#f1efe6}
 :root[data-theme="dark"] .mapsvg .pl.halo{stroke:#363a31;fill:#363a31}:root[data-theme="dark"] .mapsvg .pt.a{fill:#7fc4ab}
+
+/* portrait crops on people pages (17 Nov 2026) */
+.portraits{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;margin:14px 0 22px}
+.portraits figure{margin:0}
+.portraits img{width:100%;height:auto;display:block;border:1px solid #cfc4ad;border-radius:4px;background:#fff}
+.portraits figcaption{font:13px/1.35 'IBM Plex Sans',system-ui,sans-serif;color:#555;margin-top:6px}
+.portraits .lbl{display:block;font-style:italic;color:#6a5f4a}
