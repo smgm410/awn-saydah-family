@@ -438,9 +438,14 @@ def build_person_pages():
         dg = ''.join('<a class="pdoc" href="documents.html#item-%d"><img loading="lazy" src="%s" alt=""><span><b>Document %d</b>%s</span></a>' % (i, info[i][1], i, esc(info[i][0])) for i in seen)
         pg, anchor = p['story']
         pcs = [x for x in PORTRAITS.P if p['slug'] in x['slugs']]
-        pgrid = ('<div class="portraits" aria-label="Photographs of %s">%s</div>' % (esc(p.get('short') or p['name']), ''.join(
-            '<figure><a href="img/portraits/%s"><img loading="lazy" src="img/portraits/%s" alt="%s"></a><figcaption>%s <span class="lbl">%s</span></figcaption></figure>'
-            % (x['file'], x['file'], esc(x['cap'].split(':')[0]), esc(x['cap']), esc(x['label'])) for x in pcs))) if pcs else ''
+        def _pfig(x):
+            full = PORTRAITS.FULL.get(x['file'], x['file'])
+            capt = esc(x['cap']) + ' ' + esc(x['label'])
+            return ('<figure class="doc pc"><button class="thumb" aria-label="Open picture: %s"><img loading="lazy" src="img/portraits/%s" alt="%s"></button>'
+                    '<figcaption><span class="num">Picture</span>%s <span class="lbl">%s</span></figcaption>'
+                    '<template class="full"><div class="cap"><p>%s</p></div><div class="pics"><img class="photo" data-src="img/portraits/%s" alt="%s"></div></template></figure>'
+                    % (esc(x['cap'].split(':')[0]), x['file'], esc(x['cap'].split(':')[0]), esc(x['cap']), esc(x['label']), capt, full, esc(x['cap'].split(':')[0])))
+        pgrid = ('<div class="portraits" aria-label="Photographs of %s">%s</div>' % (esc(p.get('short') or p['name']), ''.join(_pfig(x) for x in pcs))) if pcs else ''
         body = ('<p class="lead">%s</p>' % esc(p['brief']) + pgrid +
                 '<dl class="pfacts">%s</dl>' % ''.join(rows) +
                 (('<p class="pspell"><b>Spellings in the records:</b> %s.</p>' % esc(p['spellings'])) if p['spellings'] else '') +

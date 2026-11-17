@@ -17,7 +17,7 @@ add('portrait_Mitchell-Awn_1955_Caravan-p1-honored.jpg', 'mitchell', 'Mitchell A
 add('portrait_Elias-Awn_1937_declaration-of-intention.jpg', 'elias', 'Elias (Louis) Awn: photograph on his declaration of intention, 1937. The signature is partly covered by a printed note; we read it as "Elias Joseph Khoury Aoun".', 'From the record.')
 add('portrait_Helen-Saydah_undated_family-photo-A.jpg', 'helen', 'Helen: family photograph A, undated.', 'The family says (the name is the family’s label on the print).')
 add('portrait_Helen-Awn-with-infant-Joseph_undated_family-photo-C.jpg', 'helen', 'Helen with her infant son Joseph: family photograph C, undated.', 'The family says (the names are the family’s labels on the print).')
-add('portrait_Anthony-and-Helen-Awn_undated_wedding-family-photo-D.jpg', 'anthony helen', 'Anthony and Helen: the wedding portrait, family photograph D, undated.', 'The family says (the names are the family’s labels on the print).')
+add('portrait_Anthony-and-Helen-Awn_undated_wedding-family-photo-D.jpg', 'anthony helen', 'Anthony and Helen: their wedding portrait. The print has no date.', 'The family says (the names are the family’s labels on the print).')
 add('portrait_Antoon-Saydah_undated_family-photo-B.jpg', 'antoon', 'Antoon: from family photograph B (Anton, Wassela and three daughters), undated.', 'The family says (the names are the family’s labels on the print).')
 add('portrait_Antoon-W-Saydah_1923_passport-application-image0851.jpg', 'antoon', 'Antoon W. Saydah: photograph on his 1923 passport application.', 'From the record.')
 add('portrait_Wassela-Hadad_undated_family-photo-B.jpg', 'wassela', 'Wassela: from family photograph B (Anton, Wassela and three daughters), undated.', 'The family says (the names are the family’s labels on the print).')
@@ -34,3 +34,14 @@ add('portrait_Michael-W-Saydah_undated_passport-transcript-5-image486.jpg', 'mic
 add('portrait_Harold-M-Saydah_1921_passport-application-image0443.jpg', 'murad', 'Harold M. Saydah, Murad’s son: photograph on his 1921 passport application.', 'From the record.')
 add('portrait_Ferris-M-Saydah_1923_passport-transcript-11-image553.jpg', 'murad', 'Ferris M. Saydah, Murad’s son: photograph on his 1923 passport application (FamilySearch image 553); the signature across the foot reads as his, in our reading.', 'From the record. Our identification also rests on the family’s word.')
 add('portrait_Fred-Gorayeb_1921_passport-application-image158.jpg', 'fred-gorayeb', 'Fred Gorayeb: photograph on his 1921 passport application (FamilySearch image 158), with "Fred Naleem Gorayeb" signed beneath.', 'From the record.')
+
+# Family photographs: the person page shows the close crop; the viewer opens the whole print.
+FULL = {
+ 'portrait_Helen-Saydah_undated_family-photo-A.jpg': 'full_family-photo-A.jpg',
+ 'portrait_Helen-Awn-with-infant-Joseph_undated_family-photo-C.jpg': 'full_family-photo-C.jpg',
+ 'portrait_Anthony-and-Helen-Awn_undated_wedding-family-photo-D.jpg': 'full_family-photo-D.jpg',
+ 'portrait_Antoon-Saydah_undated_family-photo-B.jpg': 'full_family-photo-B.jpg',
+ 'portrait_Wassela-Hadad_undated_family-photo-B.jpg': 'full_family-photo-B.jpg',
+ 'portrait_Saydah-daughters_undated_family-photo-B.jpg': 'full_family-photo-B.jpg',
+ 'portrait_Wassela-Hadad_undated_Jackie-Merhige-photo-15-004b.jpg': 'full_Jackie-Merhige-photo-15-004b.jpg',
+}

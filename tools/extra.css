@@ -170,6 +170,8 @@ main>aside.docs{box-sizing:border-box;max-width:42rem}
 /* portrait crops on people pages (17 Nov 2026) */
 .portraits{display:grid;grid-template-columns:repeat(auto-fill,minmax(190px,1fr));gap:14px;margin:14px 0 22px}
 .portraits figure{margin:0}
-.portraits img{width:100%;height:auto;display:block;border:1px solid #cfc4ad;border-radius:4px;background:#fff}
-.portraits figcaption{font:13px/1.35 'IBM Plex Sans',system-ui,sans-serif;color:#555;margin-top:6px}
-.portraits .lbl{display:block;font-style:italic;color:#6a5f4a}
+.portraits .thumb{display:block;width:100%;padding:0;border:1px solid var(--line);border-radius:4px;background:var(--surface);cursor:zoom-in;overflow:hidden}
+.portraits img{width:100%;height:auto;display:block}
+.portraits figcaption{font:13px/1.35 var(--ui);color:var(--soft);margin-top:6px}
+.portraits .num{display:none}
+.portraits .lbl{display:block;font-style:italic;color:var(--soft)}
