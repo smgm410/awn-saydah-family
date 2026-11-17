@@ -53,4 +53,15 @@ var tk=false;window.addEventListener('scroll',function(){if(!tk){tk=true;request
 
 (function(){var bs=[].slice.call(document.querySelectorAll('.bigtext'));function set(on){document.documentElement.classList.toggle('big',on);bs.forEach(function(b){b.setAttribute('aria-pressed',on);b.textContent=on?'Normal text':'Larger text'})}var on=false;try{on=localStorage.getItem('bigtext')==='1'}catch(e){}set(on);bs.forEach(function(b){b.addEventListener('click',function(){on=!on;set(on);try{localStorage.setItem('bigtext',on?'1':'0')}catch(e){}})})})();
 
-(function(){var s=document.querySelector('.jumpsel select');if(!s)return;s.addEventListener('change',function(){var v=s.value;if(!v)return;var t=document.getElementById(v.slice(1));if(t){t.scrollIntoView({behavior:'smooth',block:'start'});try{history.replaceState(null,'',v)}catch(e){}}s.value=''})})();
+(function(){
+/* Exact jumps: pictures further down the page load as you arrive and push the section away, so jump at once, then re-aim until the section sits at the top. */
+function jumpTo(id,push){var t=document.getElementById(id);if(!t)return false;
+ var de=document.documentElement,old=de.style.scrollBehavior;de.style.scrollBehavior='auto';
+ function aim(){var m=parseFloat(getComputedStyle(t).scrollMarginTop)||0,y=t.getBoundingClientRect().top-m;if(Math.abs(y)>2)window.scrollBy(0,y)}
+ aim();[150,400,900,1800].forEach(function(ms){setTimeout(aim,ms)});setTimeout(function(){de.style.scrollBehavior=old},1900);
+ if(push){try{history.replaceState(null,'','#'+id)}catch(e){}}return true}
+window.jumpTo=jumpTo;
+var s=document.querySelector('.jumpsel select');
+if(s)s.addEventListener('change',function(){var v=s.value;if(v){jumpTo(v.slice(1),true);s.value=''}});
+document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a)return;var id=a.getAttribute('href').slice(1);if(!id||id==='top')return;if(document.getElementById(id)){e.preventDefault();jumpTo(id,true)}});
+})();
