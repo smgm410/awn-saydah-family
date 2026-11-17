@@ -436,6 +436,15 @@ def build_person_pages():
             ids += _section_items(d) if isinstance(d, str) else [d]
         seen = []; [seen.append(i) for i in ids if i not in seen and i in info]
         dg = ''.join('<a class="pdoc" href="documents.html#item-%d"><img loading="lazy" src="%s" alt=""><span><b>Document %d</b>%s</span></a>' % (i, info[i][1], i, esc(info[i][0])) for i in seen)
+        _dp = open(os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'src', 'documents_page.html'), encoding='utf-8').read()
+        def _card(cid):
+            m = re.search(r'<article class="rec"[^>]*id="%s"[^>]*>(.*?)</article>' % re.escape(cid), _dp, re.S)
+            assert m, 'no Documents-page card ' + cid
+            h = m.group(1)
+            ttl = re.sub(r'<[^>]+>', '', re.search(r'<h4[^>]*>(.*?)</h4>', h, re.S).group(1)).strip() if re.search(r'<h4', h) else re.sub(r'\s+', ' ', re.sub(r'<[^>]+>', ' ', h)).strip()[:150]
+            im = re.search(r'<img[^>]*src="([^"]+)"', h)
+            return '<a class="pdoc" href="documents.html#%s">%s<span><b>Documents page</b>%s</span></a>' % (cid, ('<img loading="lazy" src="%s" alt="">' % im.group(1)) if im else '', esc(ttl))
+        dcg = ''.join(_card(c) for c in p.get('dcards', []))
         pg, anchor = p['story']
         pcs = [x for x in PORTRAITS.P if p['slug'] in x['slugs']]
         def _pfig(x):
@@ -451,6 +460,7 @@ def build_person_pages():
                 (('<p class="pspell"><b>Spellings in the records:</b> %s.</p>' % esc(p['spellings'])) if p['spellings'] else '') +
                 '<p class="pgo"><a class="pbtn" href="%s#%s">Read the full story</a> <a class="pback" href="people.html">All the people</a></p>' % (pg, anchor) +
                 (('<h3 class="gal">Documents about %s</h3><div class="pdocs">%s</div>' % (esc(p.get('short') or p['name']), dg)) if dg else '') +
+                (('<h3 class="gal">%s</h3><div class="pdocs">%s</div>' % (esc(p.get('dcards_h') or 'More records on the Documents page'), dcg)) if dcg else '') +
                 '<p class="pnote">Each fact carries its label: Confirmed (shown in a record), Family (told to us) or Probable (fits but unproven). Living relatives are not listed.</p>')
         f = 'person-%s.html' % p['slug']
         pages[f] = doc(f, '%s · Awn and Saydah Family History' % p['name'], p['brief'], p['name'], p['dates'], body, local='')

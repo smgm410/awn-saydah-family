@@ -1,6 +1,6 @@
 # Portrait crops approved by Sarah on 14 and 16 Nov 2026 (Doc, box 11 crop bullets and Change log). Labels in the site's plain words:
 # 'rec' = from the record; 'prob' = probably; 'fam' = the family says. Every person shown has died.
-# Held back, no person page yet: Joseph A. Awn (Home Reporter 1964), Helen Merhige (1923 passport application). Najeeb Zrake is not on the approved list.
+# Held back (no page chosen yet): the Saydah daughters crop from photo B (it opens the same full print as the Antoon and Wassela crops, so it was removed from both pages 17 Nov). Also held back, no person page yet: Joseph A. Awn (Home Reporter 1964), Helen Merhige (1923 passport application). Najeeb Zrake is not on the approved list.
 ARTR = ' (our translation, to be confirmed by a native reader)'
 LBL = {'rec': 'From the record.', 'page': 'From the page.' , 'prob': 'Probably him: ', 'fam': 'The family says.'}
 P = []
@@ -22,7 +22,7 @@ add('portrait_Antoon-Saydah_undated_family-photo-B.jpg', 'antoon', 'Antoon: from
 add('portrait_Antoon-W-Saydah_1923_passport-application-image0851.jpg', 'antoon', 'Antoon W. Saydah: photograph on his 1923 passport application.', 'From the record.')
 add('portrait_Wassela-Hadad_undated_family-photo-B.jpg', 'wassela', 'Wassela: from family photograph B (Anton, Wassela and three daughters), undated.', 'The family says (the names are the family’s labels on the print).')
 add('portrait_Wassela-Hadad_undated_Jackie-Merhige-photo-15-004b.jpg', 'wassela', 'Wassela as a young woman: a studio print emailed by Jackie Merhige on 14 November 2026, undated.', 'The family says, in Jackie’s words; not a record.')
-add('portrait_Saydah-daughters_undated_family-photo-B.jpg', 'antoon wassela', 'The three daughters of Antoon and Wassela, from family photograph B, undated. The print carries no names, so we do not say which girl is which.', 'The family says.')
+add('portrait_Saydah-daughters_undated_family-photo-B.jpg', '', 'The three daughters of Antoon and Wassela, from family photograph B, undated. The print carries no names, so we do not say which girl is which.', 'The family says.')
 add('portrait_Evelyn-Saydah_1938_Bay-Ridge-yearbook-p98.jpg', 'evelyn', 'Evelyn Saydah: Bay Ridge High School yearbook "Maroon and White", 1938, p.98, the left photograph of the row that begins with her name.', 'Probably her: the photographs sit between two columns of names and are paired with the names by row.')
 for f, cap in (
   ('portrait_Michael-W-Saydah_1915_passport-transcript-7-image658.jpg', 'Michael W. Saydah: photograph with his 1915 passport application (FamilySearch image 658), dated Chicago, 30 November 1915.'),
