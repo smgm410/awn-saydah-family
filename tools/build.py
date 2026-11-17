@@ -562,8 +562,22 @@ def build_search_index():
 def main_():
     global NDOCS
     # Documents page (17 Nov 2026): the approved card layout, built by tools/make_documents_page.py
+    _dh = open('src/documents_page.html', encoding='utf8').read()
+    _who = {}
+    for _p in PEOPLE:
+        _ids = []
+        for _d in _p['docs'] + [i for _h, _l in _p.get('dgroups', []) for i in _l]:
+            _ids += _section_items(_d) if isinstance(_d, str) else [_d]
+        _cs = set(_p.get('dcards', [])) | set(_p.get('dcards_own', []))
+        for _m in re.finditer(r'<article class="rec"[^>]*id="([^"]+)"[^>]*>(.*?)</article>', _dh, re.S):
+            if any(int(n) in _ids for n in re.findall(r'id="item-(\d+)"', _m.group(2))): _cs.add(_m.group(1))
+        for _c in _cs: _who.setdefault(_c, []).append(_p['slug'])
+    _dh = re.sub(r'(<article class="rec"[^>]*?)( id="([^"]+)")', lambda m: m.group(1) + (' data-people=" %s "' % ' '.join(_who[m.group(3)]) if m.group(3) in _who else '') + m.group(2), _dh)
+    _opts = ''.join('<option value="%s">%s</option>' % (p['slug'], esc(p['name'])) for p in sorted(PEOPLE, key=lambda q: q['name']))
+    _dh = _dh.replace('</div><p aria-live="polite" class="explainer" hidden="" id="filtercount">',
+                      '<label class="pfl">By person <select id="pfilter"><option value="">Everyone</option>%s</select></label></div><p aria-live="polite" class="explainer" hidden="" id="filtercount">' % _opts, 1)
     gal_body = ('<div id="docs-page">'
-                + open('src/documents_page.html', encoding='utf8').read()
+                + _dh
                 + '<dialog class="lb" id="dlb"><button aria-label="Close" id="dlbx">Close</button><img alt=""/><div class="cp"></div></dialog><script>'
                 + open('tools/docs_page.js', encoding='utf8').read() + '</script></div>')
     people_body, _ = build_people()
