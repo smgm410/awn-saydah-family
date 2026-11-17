@@ -121,13 +121,11 @@ def hero(cur, title, sub):
 
 def rail(cur, local):
     r = ['<button class="rail-x" id="railx" type="button" aria-label="Close contents">Close ✕</button>',
-         '<a class="share-link" href="index.html#share">Share a memory or photo</a>',
-         '<p class="rail-h">The site</p>']
+         '<a class="share-link" href="index.html#share">Share a memory or photo</a>']
     for f, label, _ in PAGES:
         r.append('<a class="l2%s" href="%s">%s</a>' % (' cur' if f == cur else '', f, esc(label)))
-    if local:
-        r.append('<p class="rail-h" style="margin-top:22px">On this page</p>')
-        r.append(local)
+        if f == cur and local:
+            r.append('<details class="rail-sub"><summary>Sections on this page</summary>' + local + '</details>')
     r.append('<a class="totop" href="#top" style="margin-top:18px">↑ Back to the top</a>')
     return '<nav class="rail" id="rail" aria-label="Contents">' + ''.join(r) + '</nav>'
 

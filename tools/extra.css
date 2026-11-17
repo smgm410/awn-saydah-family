@@ -175,3 +175,7 @@ main>aside.docs{box-sizing:border-box;max-width:42rem}
 .portraits figcaption{font:13px/1.35 var(--ui);color:var(--soft);margin-top:6px}
 .portraits .num{display:none}
 .portraits .lbl{display:block;font-style:italic;color:var(--soft)}
+
+.rail .rail-sub{margin:2px 0 8px 12px;border-left:2px solid var(--tint,#e8e2d6)}
+.rail .rail-sub summary{cursor:pointer;padding:6px 10px;font-size:.9em;opacity:.85}
+.rail .rail-sub a.l2,.rail .rail-sub a.l3{font-size:.9em}
