@@ -7,7 +7,7 @@ dict(slug='joseph-aoun',name='Joseph (Youseuf) Aoun',dates='1869 – 1932',cards
  brief='Joseph took his wife and eight children from Damour to Brooklyn in 1920, when he was about fifty. He was retired by 1932.',
  spellings='Joseph K. Owen (death certificate), Youseuf Aoun (1920 passenger list), Joseph Khoury (Arabic papers; the K. stands for Khoury)',
  rows=[('Born','21 November 1869 is the birth date printed on his 1932 death certificate, but the age it gives (62 years 9 months 7 days) would put the birth about 7 December 1869. The certificate leaves the birthplace blank; Damour comes from the 1932 notice','P'),('Died','14 September 1932, Brooklyn; buried at St. John’s Cemetery on 16 September','C'),
-  ('Spouse','{assin}','C'),('Parents','Boutros (Peter) and Teresa','C'),
+  ('Spouse','{assin}','C'),('Parents','Peter (Boutros) and Teresa','C'),
   ('Children','Nine: {nassib}, {mathilde}, {john}, {theresa}, {george}, {mitchell}, {elias}, {anthony} and {esther}','C'),
   ('Came to America','1920, on the S.S. Grampian from Southampton by way of Quebec; crossed into New York State at Rouses Point on 5 September','C')],
  docs=[2,82,133]),

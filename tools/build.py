@@ -213,7 +213,7 @@ def ped():
         cells.append('<div class="pc %s" style="grid-column:%d;grid-row:%d/%d">%s</div>' % (cls, col, r1, r2, content))
     def br(col, r1, r2, cls):
         cells.append('<div class="br %s" style="grid-column:%d;grid-row:%d/%d"></div>' % (cls, col, r1, r2))
-    put(box('Boutros (Peter) Aoun', "Joseph's father", '#joseph-and-assin-aoun'), 1, 1, 2, A)
+    put(box('Peter (Boutros) Aoun', "Joseph's father", '#joseph-and-assin-aoun'), 1, 1, 2, A)
     put(box('Teresa', "Joseph's mother", '#joseph-and-assin-aoun'), 1, 2, 3, A)
     put(box('Joseph Segen', "Assin's father (probably)", '#p-assin'), 1, 3, 4, A)
     put(box('Susanne', "Assin's mother (probably)", '#p-assin'), 1, 4, 5, A)
@@ -384,7 +384,7 @@ def build_people():
     grp('Anthony and Helen', [c('Anthony J. Awn', 'Married Helen Saydah, 29 December 1940'), c('Helen Saydah', 'Married Anthony Awn, 29 December 1940'),
                               card('Their five children', 'Joseph, Jacqueline, Kathleen, Stephanie and Marie', '#five-children', 'Children of Anthony and Helen')])
     grp('The Aoun (Awn) family of Damour',
-        [card('Boutros (Peter) Aoun', '', '#joseph-and-assin-aoun', 'Father of Joseph'), card('Teresa', '', '#joseph-and-assin-aoun', 'Mother of Joseph'),
+        [card('Peter (Boutros) Aoun', '', '#joseph-and-assin-aoun', 'Father of Joseph'), card('Teresa', '', '#joseph-and-assin-aoun', 'Mother of Joseph'),
          c('Joseph (Youseuf) Aoun', 'Husband of Assin'), c('Assin', 'Wife of Joseph')] +
         [c(n, 'Child of Joseph and Assin') for n in ['Nassib (Nessil)', 'Matilda (Mathilde)', 'John', 'Theresa', 'George', 'Mitchell', 'Elias (Louis)', 'Anthony', 'Esther']], 'a')
     grp('The Saydah family of Forzul',
