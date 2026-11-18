@@ -437,7 +437,9 @@ def build_person_pages():
         rows = []
         for label, text, tag in p['rows']:
             t = re.sub(r'\{([a-z\-]+)\}', link, esc(text).replace('&#x27;', '’'))
-            tg = ' <b class="tag %s">%s</b>' % TAGW[tag] if tag else ''
+            tg = ''
+            if tag == 'F' and not label.lower().startswith(('family', 'the family')): tg = ' <em class="pl">(the family says)</em>'
+            elif tag == 'P' and not label.lower().startswith('probabl') and 'probabl' not in text.lower()[:40]: tg = ' <em class="pl">(probably)</em>'
             rows.append('<div><dt>%s</dt><dd>%s%s</dd></div>' % (esc(label), t, tg))
         ids = []
         for d in p['docs']:
@@ -478,7 +480,7 @@ def build_person_pages():
                 (('<h3 class="gal">Documents about %s</h3><div class="pdocs">%s</div>' % (esc(p.get('short') or p['name']), dg + own)) if (dg or own) else '') +
                   dgg +
               (('<h3 class="gal">%s</h3><div class="pdocs">%s</div>' % (esc(p.get('dcards_h') or 'More records on the Documents page'), dcg)) if dcg else '') +
-                '<p class="pnote">Each fact carries its label: Confirmed (shown in a record), Family (told to us) or Probable (fits but unproven). Living relatives are not listed.</p>')
+                '<p class="pnote">A plain statement comes from a record we hold. “The family says” means we were told it and have not found a record. “Probably” means it fits the records but is not proven. Living relatives are not listed.</p>')
         f = 'person-%s.html' % p['slug']
         pages[f] = doc(f, '%s · Awn and Saydah Family History' % p['name'], p['brief'], p['name'], p['dates'], body, local='')
         txt = ' '.join([p['brief'], p['spellings']] + ['%s %s' % (a, re.sub(r'\{([a-z\-]+)\}', lambda m: PBYSLUG[m.group(1)]['name'], b)) for a, b, c in p['rows']])
