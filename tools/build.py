@@ -240,7 +240,7 @@ def couple(a, b, wed):
 def spine(chips):
     return '<ul class="spine">' + ''.join('<li>%s</li>' % c for c in chips) + '</ul>'
 
-SPOUSES = [('Fred Gorayeb', 'born about 1889', 'fred-gorayeb', 'Husband of Mathilde'),
+SPOUSES = [('Fred Gorayeb', 'born about 1889', 'fred-gorayeb', 'Husband of Matilda'),
            ('Michael Koury', 'born 1906', 'michael-koury', 'Husband of Theresa'),
            ('Isabel Awn', '1916 – 2007', 'isabel', 'Wife of Elias'),
            ('Tirkman Saydah', 'died 1929', 'tirkman', 'Widow of Murad'),
@@ -251,18 +251,18 @@ SPOUSES = [('Fred Gorayeb', 'born about 1889', 'fred-gorayeb', 'Husband of Mathi
 def branches():
     out = []
     out.append('<section class="branch a"><h4>Joseph and Assin’s nine children</h4>' + couple(box('Joseph (Youseuf) Aoun', '1869 – 1932', '#joseph-and-assin-aoun'), box('Assin', 'died 1935', '#p-assin'), 'married') +
-               spine([chip(n) for n in ['Nassib (Nessil)', 'Mathilde (Matilda)', 'John', 'Theresa', 'George', 'Mitchell', 'Elias (Louis)', 'Anthony', 'Esther']]) + '</section>')
+               spine([chip(n) for n in ['Nassib (Nessil)', 'Matilda (Mathilde)', 'John', 'Theresa', 'George', 'Mitchell', 'Elias (Louis)', 'Anthony', 'Esther']]) + '</section>')
     out.append('<section class="branch s"><h4>Antoon and Wassela’s children</h4>' + couple(box('Antoon (Anton) Saydah', '1880 or 1881 – 1949', '#anton-arrives-1898'), box('Wassela Hadad', 'born 1886–93 · died about 1969', '#anton-and-wassela'), 'married 5 May 1912') +
                spine([chip(n) for n in ['Lily', 'Helen', 'Evelyn', 'Virginia']]) + '</section>')
     out.append('<section class="branch s"><h4>Antoon’s brothers and sisters</h4><p class="ft-par">Children of Wahbeh Saydah and Noor.</p>' +
                spine([chip(n) for n in ['Khaleel', 'Michael', 'Murad']] + [box('Antoon (Anton) Saydah', '1880 or 1881 – 1949', '#anton-arrives-1898')] + [chip(n) for n in ['Sa’da Kirkish', 'Nustas Kirkish']]) + '</section>')
-    out.append('<section class="branch s"><h4>Wassela’s brothers</h4><p class="ft-par">Children of Hanna (John) Hadad and Amina Shehadi.</p>' +
-               spine([chip(n) for n in ['Salim', 'Charles', 'Najib']]) + '</section>')
+    out.append('<section class="branch s"><h4>Wassela’s brothers and sister</h4><p class="ft-par">Children of Hanna (John) Hadad and Amina Shehadi.</p>' +
+               spine([chip(n) for n in ['Salim', 'Charles', 'Najib']] + [box('Helen Hadad', 'about 1905 – 1908 (probably)', '#wassela-s-family-the-hodods-hadad-and-th')]) + '</section>')
     out.append('<section class="branch a"><h4>Husbands and wives who joined the family</h4><p class="ft-par">Each name opens a short page.</p>' +
                spine([box(n, sub, 'person-%s.html' % sl) for n, sub, sl, note in SPOUSES]) + '</section>')
     return '<div class="branches">' + ''.join(out) + '</div>'
 
-TREEMAP = {'Joseph (Youseuf) Aoun':'joseph-aoun','Assin':'assin','Nassib (Nessil)':'nassib','Mathilde (Matilda)':'mathilde','John':'john',
+TREEMAP = {'Joseph (Youseuf) Aoun':'joseph-aoun','Assin':'assin','Nassib (Nessil)':'nassib','Matilda (Mathilde)':'mathilde','John':'john',
  'Theresa':'theresa','George':'george','Mitchell':'mitchell','Elias (Louis)':'elias','Esther':'esther','Anthony':'anthony','Anthony J. Awn':'anthony',
  'Helen':'helen','Helen Saydah':'helen','Antoon (Anton) Saydah':'antoon','Wassela Hadad':'wassela','Hanna (John) Hadad':'hanna-hadad',
  'Amina Shehadi':'amina','Lily':'lily','Evelyn':'evelyn','Virginia':'virginia','Khaleel':'khaleel','Michael':'michael-saydah','Murad':'murad',
@@ -386,7 +386,7 @@ def build_people():
     grp('The Aoun (Awn) family of Damour',
         [card('Boutros (Peter) Aoun', '', '#joseph-and-assin-aoun', 'Father of Joseph'), card('Teresa', '', '#joseph-and-assin-aoun', 'Mother of Joseph'),
          c('Joseph (Youseuf) Aoun', 'Husband of Assin'), c('Assin', 'Wife of Joseph')] +
-        [c(n, 'Child of Joseph and Assin') for n in ['Nassib (Nessil)', 'Mathilde (Matilda)', 'John', 'Theresa', 'George', 'Mitchell', 'Elias (Louis)', 'Anthony', 'Esther']], 'a')
+        [c(n, 'Child of Joseph and Assin') for n in ['Nassib (Nessil)', 'Matilda (Mathilde)', 'John', 'Theresa', 'George', 'Mitchell', 'Elias (Louis)', 'Anthony', 'Esther']], 'a')
     grp('The Saydah family of Forzul',
         [card('Wahbeh Saydah', '', '#anton-s-brothers-and-sisters', 'Father of Antoon and his brothers and sisters'), card('Noor', '', '#anton-s-brothers-and-sisters', 'Mother of Antoon'),
          c('Antoon (Anton) Saydah', 'Husband of Wassela')] +
