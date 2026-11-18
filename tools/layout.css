@@ -70,3 +70,31 @@
 .lay .strip figure.doc.land .thumb{aspect-ratio:5/4}
 .lay .strip.two{grid-template-columns:repeat(2,minmax(0,1fr))}
 @media(max-width:560px){.lay .strip.two{grid-template-columns:1fr}}
+
+/* compact page frame: narrower side column, tighter gaps, no duplicate jump menu on wide screens */
+@media(min-width:901px){
+ .shell{grid-template-columns:190px minmax(0,1fr);gap:32px}
+ .rail{padding-top:22px}
+ .rail a.share-link{margin-bottom:14px;padding:8px 10px;font-size:13px}
+ .jumpsel{display:none}
+ main{padding-top:24px}
+}
+
+/* wide screens: "Jump to a section" is a plain heading, not a fold-out */
+@media(min-width:901px){
+ .rail .rail-sub{border-left:0;margin:4px 0 8px}
+ .rail .rail-sub summary{pointer-events:none;cursor:default;list-style:none;padding:0 0 10px;font:600 11.5px var(--ui);letter-spacing:.14em;text-transform:uppercase;color:var(--soft)}
+ .rail .rail-sub summary::-webkit-details-marker{display:none}
+ .rail .rail-sub summary::marker{content:""}
+}
+
+/* documents page: the "By person" menu follows the site colours (was white with pale text in dark mode) */
+#docs-page .pfl select{background:var(--surface);color:var(--ink);border:1px solid var(--line)}
+#docs-page .pfl select option{background:var(--surface);color:var(--ink)}
+
+/* documents page on phones: cards may not be wider than the screen */
+#docs-page .recs{grid-template-columns:minmax(0,1fr)}
+#docs-page .rec,#docs-page .rec .tx{min-width:0;overflow-wrap:anywhere}
+#docs-page .pics{max-width:100%}
+#docs-page .pics a{max-width:100%}
+#docs-page .pics img{max-width:100%;height:auto;max-height:190px}

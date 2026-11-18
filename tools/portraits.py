@@ -21,7 +21,7 @@ add('portrait_Anthony-and-Helen-Awn_undated_wedding-family-photo-D.jpg', 'anthon
 add('portrait_Antoon-Saydah_undated_family-photo-B.jpg', '', 'Antoon: from family photograph B (Anton, Wassela and three daughters), undated.', 'The family says (the names are the family’s labels on the print).')
 add('portrait_Antoon-W-Saydah_1923_passport-application-image0851.jpg', 'antoon', 'Antoon W. Saydah: photograph on his 1923 passport application.', 'From the record.')
 add('portrait_Wassela-Hadad_undated_family-photo-B.jpg', '', 'Wassela: from family photograph B (Anton, Wassela and three daughters), undated.', 'The family says (the names are the family’s labels on the print).')
-add('portrait_Wassela-Hadad_undated_Jackie-Merhige-photo-15-004b.jpg', 'wassela', 'Wassela as a young woman: a studio print emailed by Jackie Merhige on 14 November 2026, undated.', 'The family says, in Jackie’s words; not a record.')
+add('portrait_Wassela-Hadad_undated_family-photo-15-004b.jpg', 'wassela', 'Wassela as a young woman: a studio print emailed by Jackie, Helen’s daughter, on 14 November 2026, undated.', 'The family says, in Jackie’s words; not a record.')
 add('full_family-photo-B.jpg', 'antoon wassela', 'Antoon, Wassela and their three daughters: the whole family photograph, undated. The print carries no names, so we do not say which girl is which.', 'The family says (the names are the family’s labels on the print).')
 add('portrait_Evelyn-Saydah_1938_Bay-Ridge-yearbook-p98.jpg', 'evelyn', 'Evelyn Saydah: Bay Ridge High School yearbook "Maroon and White", 1938, p.98, the left photograph of the row that begins with her name.', 'Probably her: the photographs sit between two columns of names and are paired with the names by row.')
 for f, cap in (
@@ -43,5 +43,5 @@ FULL = {
  'portrait_Antoon-Saydah_undated_family-photo-B.jpg': 'full_family-photo-B.jpg',
  'portrait_Wassela-Hadad_undated_family-photo-B.jpg': 'full_family-photo-B.jpg',
  'portrait_Saydah-daughters_undated_family-photo-B.jpg': 'full_family-photo-B.jpg',
- 'portrait_Wassela-Hadad_undated_Jackie-Merhige-photo-15-004b.jpg': 'full_Jackie-Merhige-photo-15-004b.jpg',
+ 'portrait_Wassela-Hadad_undated_family-photo-15-004b.jpg': 'full_family-photo-15-004b.jpg',
 }

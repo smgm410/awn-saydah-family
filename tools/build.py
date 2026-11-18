@@ -10,7 +10,7 @@ import re, json, html, os, sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(ROOT)
 SRC = open('src/site.html', encoding='utf8').read()
-UPDATED = '12 November 2026'
+UPDATED = '18 November 2026'
 
 def esc(s): return html.escape(s, quote=True)
 def plain(s):
@@ -117,7 +117,7 @@ def hero(cur, title, sub):
                 '<p class="for">The story of our family, with the records behind it</p>' + SEARCHFORM + sitenav(cur) +
                 '<div class="stats"><div><b>1869 to 2000</b><span>131 years of records</span></div>'
                 '<div><b>2 villages</b><span>Damour and Forzul, Lebanon</span></div>'
-                '<div><b>%d documents</b><span>shown beside the story</span></div></div></div></header>' % NDOCS)
+                '<div><b>%d documents</b><span>records on the Documents page</span></div></div></div></header>' % NDOCS)
     return ('<header class="hero slim"><div class="hero-in"><a class="kick" href="index.html">The Awn and Saydah families</a>'
             '<h1>%s</h1>%s' % (title, ('<p class="for">%s</p>' % sub if sub else '')) + SEARCHFORM + sitenav(cur) + '</div></header>')
 
@@ -185,7 +185,7 @@ FONTS = ('<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="
 
 # ---------------------------------------------------------------- figures (for gallery and counts)
 FIG_RE = re.compile(r'<figure class="doc(?: strip-doc(?: [a-z0-9-]+)*)?" id="item-(\d+)">.*?</figure>', re.S)
-NDOCS = len(set(re.findall(r'<figure class="doc(?: strip-doc(?: [a-z0-9-]+)*)?" id="item-(\d+)"', main)))
+NDOCS = len(re.findall(r'<article class="rec"', open('src/documents_page.html', encoding='utf8').read()))  # cards on the Documents page
 
 def figs_with_context(file, body):
     """yield (num, figure_html, section_title) using nearest preceding h3/h2"""
@@ -293,9 +293,10 @@ def build_home():
              '<a class="card" href="journey.html"><b>The journey map</b><span>Lebanon, Brooklyn and the places in between</span></a>'
              '</div>' % NDOCS)
     new = ('<h2 id="whats-new" class="plain">What’s new</h2><div class="new"><p class="new-d">Updated %s</p><ul>'
-           '<li>18 more documents are shown in the story, so there are now %d: George’s funeral notice and grave, Anthony’s 1966 obituary, the 1913 shooting of Salim Hadad, Hanna Haddad’s death, the 1916 crash and its appeal, the 1941 wedding notices, and the death notices for Khaleel, Michael and Antoon.</li>'
-           '<li>The site is now in several pages, with search, a branching family tree, a page of all documents, a people list and a journey map.</li>'
-           '<li>“Records cited but not pictured” is grouped by family line, on the For researchers page.</li></ul></div>' % (UPDATED, NDOCS))
+           '<li>Every part of the story now has the same layout: a strip of the records, a short line on what we found, the story itself, what is still open, and questions for the family.</li>'
+           '<li>The Documents page now lists %s records, each with its citation and a plain-words note on what it is.</li>'
+           '<li>Family photographs and portrait crops from the records now sit beside the people they show, and the labels use plain words (“the family says”, “probably”) instead of colored tags.</li>'
+           '<li>Sources in each story now link straight to their entry on the Documents page.</li></ul></div>' % (UPDATED, NDOCS))
     how = pre
     # insert start/new after the note and rename howto heading id
     note_end = how.find('</aside>') + len('</aside>')

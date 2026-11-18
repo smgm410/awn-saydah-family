@@ -65,3 +65,6 @@ var s=document.querySelector('.jumpsel select');
 if(s)s.addEventListener('change',function(){var v=s.value;if(v){jumpTo(v.slice(1),true);s.value=''}});
 document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a)return;var id=a.getAttribute('href').slice(1);if(!id||id==='top')return;if(document.getElementById(id)){e.preventDefault();jumpTo(id,true)}});
 })();
+
+/* wide screens: the side "Jump to a section" list starts open (the column is otherwise empty); phones keep it folded */
+(function(){try{var m=window.matchMedia('(min-width:901px)');document.querySelectorAll('.rail details.rail-sub').forEach(function(d){if(m.matches)d.open=true;});}catch(e){}})();
