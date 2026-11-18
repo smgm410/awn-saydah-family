@@ -193,7 +193,7 @@ dict(slug='george-hakim',name='George Michael Hakim',dates='1918 – 1996',cards
   ('War and school','Staff Sergeant, U.S. Army, World War II; a Columbia College graduate','C'),
   ('Work','Account examiner at an advertising agency in 1950; later an executive vice president of marketing at Emerson Quiet Kool, Edison, New Jersey','P'),
   ('Children','Four (her obituary); two were at home in the 1950 census','F'),
-  ('Died','18 January 1996 (Social Security Death Index, Find a Grave, obituary index). Home given as Harrington Park (SSDI) or Tenafly (obituary index), New Jersey; buried at Brookside Cemetery, Englewood. A member of St. Anthony Orthodox Church, Bergenfield','P'),
+  ('Died','18 January 1996 (Social Security Death Index, Find a Grave, obituary index). Home given as Harrington Park (Social Security Death Index) or Tenafly (obituary index), New Jersey; buried at Brookside Cemetery, Englewood. A member of St. Anthony Orthodox Church, Bergenfield','P'),
   ('Sister','Eleanor, who was a bridesmaid at the 1945 wedding; the 1996 obituary index also lists a sister Eleanor','P'),
   ('Same man as the 1996 obituary?','Virginia’s 2015 obituary calls her husband George, also from Brooklyn, back from the war in 1945, and her church matches his; her burial was planned at Brookside Cemetery, Englewood, where Find a Grave places him. No record yet names him in her obituary','P')],
  docs=[79,80]),
