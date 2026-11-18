@@ -63,3 +63,8 @@
 .lay .strip figure.doc:not(.wide) .thumb{aspect-ratio:1/1}
 .lay .strip figure.doc:not(.wide) .thumb img{height:100%;max-height:none;object-fit:contain;object-position:center}
 .lay .strip figure.doc.wide .thumb img{max-height:210px;object-fit:cover;object-position:top center}
+.lay .strip figure.doc.span2{grid-column:span 2}
+.lay .strip figure.doc.span2 .thumb{aspect-ratio:auto}
+.lay .strip figure.doc.span2 .thumb img{height:auto;max-height:250px;object-fit:cover;object-position:top center}
+@media(max-width:560px){.lay .strip figure.doc.span2{grid-column:auto}}
+.lay .strip figure.doc.land .thumb{aspect-ratio:5/4}
