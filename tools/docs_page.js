@@ -5,7 +5,7 @@ var kinds=act.filter(function(k){return k==='index'||k==='arabic';});var others=
 var pf=document.getElementById('pfilter').value;var shown=0,filtering=act.length>0||!!pf;
 document.querySelectorAll('.rec').forEach(function(r){var show=(!pf||(r.dataset.people||'').indexOf(' '+pf+' ')>-1)&&others.every(function(f){return ok(r,f);})&&(!kinds.length||kinds.some(function(f){return ok(r,f);}));r.classList.toggle('hide',!show);if(show)shown++;});
 document.querySelectorAll('details.box').forEach(function(d){var n=d.querySelectorAll('.rec:not(.hide)').length;d.classList.toggle('empty',filtering&&n===0);if(filtering&&n>0)d.open=true;
-d.querySelectorAll('section.disagree,.kid,.explainer,.tbd').forEach(function(e){e.classList.toggle('filt-hide',filtering);});});
+d.querySelectorAll('section.disagree,.kid,.explainer,.tbd').forEach(function(e){e.classList.toggle('filt-hide',filtering);});d.querySelectorAll('.recs').forEach(function(g){g.classList.toggle('filt-hide',filtering&&g.querySelectorAll('.rec:not(.hide)').length===0);});});
 var c=document.getElementById('filtercount');if(filtering){c.hidden=false;c.textContent='Showing '+shown+' of '+document.querySelectorAll('.rec').length+' cards. Boxes with no match are hidden. Turn a filter off to see everything.';}else{c.hidden=true;c.textContent='';}}
 function clearFilters(){on={};document.getElementById('pfilter').value='';chips.forEach(function(b){b.setAttribute('aria-pressed','false');});apply();}
 document.getElementById('pfilter').addEventListener('change',apply);
