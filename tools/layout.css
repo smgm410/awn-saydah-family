@@ -98,3 +98,7 @@
 #docs-page .pics{max-width:100%}
 #docs-page .pics a{max-width:100%}
 #docs-page .pics img{max-width:100%;height:auto;max-height:190px}
+:root[data-theme="dark"] #docs-page .disagree,:root[data-theme="dark"] .disagree{background:#2e2415;border-color:#6b5320;border-left-color:#c98a1b;color:var(--ink)}
+:root[data-theme="dark"] #docs-page .disagree h3,:root[data-theme="dark"] .disagree h3{color:#e3b968}
+:root[data-theme="dark"] #docs-page .disagree .di,:root[data-theme="dark"] .disagree .di{border-top-color:#4a3a1c}
+@media(prefers-color-scheme:dark){:root:not([data-theme="light"]) #docs-page .disagree,:root:not([data-theme="light"]) .disagree{background:#2e2415;border-color:#6b5320;border-left-color:#c98a1b;color:var(--ink)}:root:not([data-theme="light"]) #docs-page .disagree h3,:root:not([data-theme="light"]) .disagree h3{color:#e3b968}:root:not([data-theme="light"]) #docs-page .disagree .di,:root:not([data-theme="light"]) .disagree .di{border-top-color:#4a3a1c}}
