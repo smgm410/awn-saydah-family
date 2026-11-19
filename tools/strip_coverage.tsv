@@ -163,24 +163,24 @@ B03-05	card	picture card quebec-list-d-1920 (a crop of the heading and lines 4 t
 B04-03	card	text-only card census-1920-202-baltic (no image); Khoury household not added as a relative
 B03-06	private	Family email chain 15-005, names living relatives; off the site until Sarah says which parts
 B03-07	private	Family memory of a medical account (Elias eye infection); held for Sarah per the privacy rule; the site keeps only the family-memory question
-B01-09	ask	Claude 18 Nov 2026: new record added to the Doc 18 Nov; Sarah to decide whether it gets a Documents-page entry
+B01-09	card	item-census-1930-awn
 B02-22	not-ours	Claude 18 Nov 2026: set aside, probably not our family
-B02-29	ask	Claude 18 Nov 2026: new record added to the Doc 18 Nov; Sarah to decide whether it gets a Documents-page entry
-B09-43	ask	Claude 18 Nov 2026: Possible only (Salim Hadad card); weaker than Probable so question-only; Sarah to decide
-B09-44	ask	Claude 18 Nov 2026: Possible only (Salim Haddad petition); Sarah to decide
-B09-45	ask	Claude 18 Nov 2026: new record added to the Doc 18 Nov; Sarah to decide whether it gets a Documents-page entry
-B09-46	ask	Claude 18 Nov 2026: new record added to the Doc 18 Nov; Sarah to decide whether it gets a Documents-page entry
-B09-47	ask	Claude 18 Nov 2026: unlinked side lead; Sarah to decide
+B02-29	docs-only	Sarah 18 Nov 2026: on the site as heat-wave background in George's story; Documents-page entry, no picture
+B09-43	adds-nothing	Sarah 18 Nov 2026: Hadad records stay off the site
+B09-44	adds-nothing	Sarah 18 Nov 2026: Hadad records stay off the site
+B09-45	adds-nothing	Sarah 18 Nov 2026: Hadad records stay off the site
+B09-46	adds-nothing	Sarah 18 Nov 2026: Hadad records stay off the site
+B09-47	adds-nothing	Sarah 18 Nov 2026: stays off the site
 B11-58	living	Claude 18 Nov 2026: 1950 Hakim household, children may be living
-B11-59	ask	Claude 18 Nov 2026: new record added to the Doc 18 Nov; Sarah to decide whether it gets a Documents-page entry
-B13-43	ask	Claude 18 Nov 2026: new record added to the Doc 18 Nov; Sarah to decide whether it gets a Documents-page entry
-B13-44	ask	Claude 18 Nov 2026: unlinked pointer, Sarah does not remember why saved; Sarah to decide
-B14-28	ask	Claude 18 Nov 2026: new record added to the Doc 18 Nov; Sarah to decide whether it gets a Documents-page entry
-B14-29	ask	Claude 18 Nov 2026: new record added to the Doc 18 Nov; Sarah to decide whether it gets a Documents-page entry
-B15-39	ask	Claude 18 Nov 2026: new record added to the Doc 18 Nov; Sarah to decide whether it gets a Documents-page entry
-B15-40	ask	Claude 18 Nov 2026: new record added to the Doc 18 Nov; Sarah to decide whether it gets a Documents-page entry
-B15-41	ask	Claude 18 Nov 2026: new record added to the Doc 18 Nov; Sarah to decide whether it gets a Documents-page entry
-B15-43	ask	Claude 18 Nov 2026: new record added to the Doc 18 Nov; Sarah to decide whether it gets a Documents-page entry
+B11-59	docs-only	Sarah 18 Nov 2026: commentary in Eli Zrake's story only; no documents
+B13-43	card	item-census-1930-khaleel
+B13-44	adds-nothing	Sarah 18 Nov 2026: ignore
+B14-28	card	item-passport-1917
+B14-29	card	item-census-1940-michael
+B15-39	docs-only	Sarah 18 Nov 2026: text-only Documents-page entry; no picture, no wives or sons named
+B15-40	docs-only	Sarah 18 Nov 2026: text-only Documents-page entry
+B15-41	docs-only	Sarah 18 Nov 2026: text-only Documents-page entry
+B15-43	adds-nothing	Sarah 18 Nov 2026: stays off the site
 B15-45	living	Claude 18 Nov 2026: 1940 census names Harold's living-age children risk; first names only, not for the site
 B15-46	living	Claude 18 Nov 2026: 1940 census names Cecil's son (may be living)
 B15-47	living	Claude 18 Nov 2026: 1950 census names Cecil's sons (may be living)
